@@ -66,3 +66,20 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+@import url('semantic-ui-css/semantic.min.css');
+
+body {
+  background-color: #eaeaea;
+}
+
+.ui.fixed.menu {
+  background-image: linear-gradient(to right top, #dce8eb, #d6e5e9, #cfe2e7, #c9dfe4, #c2dce2);
+}
+
+/* .ui.main.container {
+  margin-top: 7em;
+} */
+
+.ui.vertical.segment {
+  background-image: linear-gradient(to right top, #dce8eb, #d6e5e9, #cfe2e7, #c9dfe4, #c2dce2);
+}
