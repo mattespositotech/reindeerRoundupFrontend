@@ -3,7 +3,7 @@ import { Container, Grid, Header, Image, Segment, List, ListItem, ListHeader, Li
 export default function Footer() {
   return (
     <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '3em 0em' }}>
-        <Container textAlign="center">
+        <Container>
             <Grid divided inverted stackable>
                 <GridColumn width={8} floated="left">
                     <List verticalAlign="middle">
@@ -15,7 +15,7 @@ export default function Footer() {
                         </ListItem>
                     </List>
                 </GridColumn>
-                <GridColumn width={4}>
+                <GridColumn width={4} textAlign="left">
                     <Header as='h4'>Browse</Header>
                     <List>
                         <ListItem as='a'>Home</ListItem>
@@ -28,7 +28,7 @@ export default function Footer() {
                 </GridColumn>
                 <GridColumn width={4}>
                     <Header as='h3'>Get Start Today</Header>
-                    <Button >Build A List</Button>
+                    <Button>Build A List</Button>
                 </GridColumn>
             </Grid>
         </Container>

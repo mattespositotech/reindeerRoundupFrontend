@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Container, Header, List, ListItem, Image, ListContent, ListHeader, ListDescription, Button } from "semantic-ui-react";
 
 const introImage = '/src/assets/8816187_gifts_christmas_gifting_wrapping_candy_icon (1).png'
@@ -9,7 +10,7 @@ function introText() {
             <Header as='h2'>The Easiest Name Randomizer</Header>
             <p>Refresh your holiday traditions with our Secret Santa generator, where we keep immediate family out of the equation, making each gift a discovery of pure delight.</p>
             <Container textAlign="center">
-                <Button primary>Build A List</Button>
+                <Button primary as={Link} to='/roundup'>Build A List</Button>
             </Container>
         </Container>
         )
