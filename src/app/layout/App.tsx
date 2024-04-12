@@ -1,14 +1,16 @@
 import NavBar from "./nav/NavBar"
 import Footer from "./nav/Footer"
 import { Outlet } from "react-router-dom"
-// import { Container } from "semantic-ui-react"
+import { Container } from "semantic-ui-react"
 
 function App() {
 
   return (
     <>
       <NavBar />
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
       <Footer />
     </>
   )
