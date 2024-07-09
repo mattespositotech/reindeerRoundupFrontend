@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateAccountContent, ForgotPasswordContent, SignInContent } from "../../../content/SignInPageContent";
+import { CreateAccountContent, ForgotPasswordContent, SignInContent } from "../../content/SignInPageContent";
 import ImageWithContainer from "../containers/ImageWithContainer";
 
 export default function SignInPage() {

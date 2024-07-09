@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { useState } from "react";
-import Stepper from "../../../components/Stepper";
+import Stepper from "../../components/Stepper";
 import { Button, Form, FormGroup, FormInput, FormSelect, FormTextArea, Grid, GridColumn, Header, List, ListItem } from "semantic-ui-react";
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 

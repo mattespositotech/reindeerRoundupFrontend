@@ -1,4 +1,4 @@
-import { introImage, introText, howImage, howItWorks } from "../../../content/HomePageContent";
+import { introImage, introText, howImage, howItWorks } from "../../content/HomePageContent";
 import ImageWithContainer from "../containers/ImageWithContainer";
 
 export default function HomePage() {
