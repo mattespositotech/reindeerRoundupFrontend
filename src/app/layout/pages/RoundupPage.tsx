@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Stepper from "../../components/Stepper";
 import RoundupNameForm from "../../components/forms/RoundupNameForm";
-//import RoundupParticipantsForm from "../../components/forms/PartForm";
 import RoundupBlacklistForm from "../../components/forms/RoundupBlacklistForm";
 import RoundupParticipantsForm from "../../components/forms/RoundupParticipantsForm";
 

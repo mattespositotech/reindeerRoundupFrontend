@@ -1,47 +1,57 @@
-import { Controller, FieldValues, useForm } from "react-hook-form";
-import { addToStoredData, loadStoredData } from "../../utils/Session";
-import { Button, Form, FormGroup, FormSelect, Header, List, ListItem } from "semantic-ui-react";
-import { Blacklist, Participant } from "../../types/FormTypes";
-import { useState } from "react";
+import { Controller, FieldValues, useFieldArray, useForm } from "react-hook-form";
+import { Participant } from "../../types/FormTypes";
+import { loadStoredData } from "../../utils/Session";
+import { Button, Form, FormGroup, FormSelect } from "semantic-ui-react";
+
 
 interface RoundupBlacklistFormProps {
     back: () => void;
     next: () => void;
 }
 
-export default function RoundupBlacklistForm({back , next}: RoundupBlacklistFormProps) {
-    //const { unregister, handleSubmit, control, setValue } = useForm();
-    //const [blacklists, setBlacklists] = useState<Blacklist[]>([]);
-    
-    // function submit(data: FieldValues) {
-    //     console.log(data)
-    //     addToStoredData('roundupBlacklists', data)
-    //     next()
-    // }
+type FormValues = {
+    blacklist: { email: string }[];
+}
 
-    // move to utils
+export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFormProps) {
+    const { handleSubmit, control, setValue } = useForm<FormValues>();
+    const { fields, append, remove } = useFieldArray({
+        name: 'blacklist',
+        control
+    })
+
     function participantOptions() {
-        const participants = loadStoredData('roundupParticipants')
-        const participantArray: Participant[] = Object.keys(participants).reduce((acc, key, index) => {
-            if (key.startsWith('pn-')) {
-                const uid = key.slice(3);
-                const id = (index / 2) + 1;
-                acc.push({
-                    id: id.toString(),
-                    name: data[`pn-${uid}`],
-                    email: data[`pe-${uid}`]
-                });
-            }
-            return acc;
-        }, [] as Participant[]);
-        console.log(participants)
+        const { participants } = loadStoredData('roundupParticipants')
+        return (participants || []).map((participant: Participant) => {
+            return { text: participant.name, value: participant.email };
+        });
     }
 
-  return (
-    <Form>
-            <Button onClick={participantOptions}>Participants</Button>
-            <Button onClick={back}>Back</Button>
+    function onSubmit(data: FieldValues) {
+        console.log(data)
+    }
+
+    return (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            {fields.map((field, index) => (
+                <FormGroup key={field.id}>
+                    <Controller
+                        name={`blacklist.${index}.email`}
+                        control={control}
+                        render={({ field }) => (
+                            <FormSelect options={participantOptions()} {...field}
+                                onChange={(_, data) => {
+                                    if (data.value)
+                                        setValue(`blacklist.${index}.email`, data.value.toString())
+                                }} />
+                        )}
+                    />
+                    <Button type="button" onClick={() => remove(index)}>Delete</Button>
+                </FormGroup>
+            ))}
+            <Button type="button" onClick={() => append({ email: '' })}>Add Participant</Button>
+            <Button type="button" onClick={back}>Back</Button>
             <Button>Next</Button>
         </Form>
-  )
+    )
 }
