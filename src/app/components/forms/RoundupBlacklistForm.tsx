@@ -1,7 +1,8 @@
-import { Controller, FieldValues, useFieldArray, useForm } from "react-hook-form";
+import { FieldValues, useFieldArray, useForm } from "react-hook-form";
 import { Participant } from "../../types/FormTypes";
-import { loadStoredData } from "../../utils/Session";
-import { Button, Form, FormGroup, FormSelect } from "semantic-ui-react";
+import { loadStoredData, saveStoredData } from "../../utils/Session";
+import { Button, Form, FormGroup } from "semantic-ui-react";
+import IndividualBlacklist from "./NestedComponents/IndividualBlacklist";
 
 
 interface RoundupBlacklistFormProps {
@@ -9,14 +10,20 @@ interface RoundupBlacklistFormProps {
     next: () => void;
 }
 
-type FormValues = {
-    blacklist: { email: string }[];
+const defaultValues = {
+    masterBlacklist: [
+        {
+            name: 'blacklist',
+            blacklist: [{ email: '' }]
+        }
+    ]
 }
 
 export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFormProps) {
-    const { handleSubmit, control, setValue } = useForm<FormValues>();
-    const { fields, append, remove } = useFieldArray({
-        name: 'blacklist',
+    const loadedBlacklists = loadStoredData('roundupBlacklists') || defaultValues;
+    const { handleSubmit, control, getValues, setValue } = useForm({ defaultValues: loadedBlacklists });
+    const { fields, remove } = useFieldArray({
+        name: 'masterBlacklist',
         control
     })
 
@@ -28,28 +35,31 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     }
 
     function onSubmit(data: FieldValues) {
-        console.log(data)
+        saveStoredData('roundupBlacklists', data);
+        next();
+    }
+
+    function appendBlacklist() {
+        setValue("masterBlacklist", [...(getValues().masterBlacklist || []),
+        {
+            name: 'blacklist',
+            blacklist: [{ email: '' }]
+        }
+        ])
     }
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             {fields.map((field, index) => (
-                <FormGroup key={field.id}>
-                    <Controller
-                        name={`blacklist.${index}.email`}
-                        control={control}
-                        render={({ field }) => (
-                            <FormSelect options={participantOptions()} {...field}
-                                onChange={(_, data) => {
-                                    if (data.value)
-                                        setValue(`blacklist.${index}.email`, data.value.toString())
-                                }} />
-                        )}
-                    />
-                    <Button type="button" onClick={() => remove(index)}>Delete</Button>
-                </FormGroup>
+                <div key={field.id}>
+                    <h2>Blacklist: {index + 1}</h2>
+                    <FormGroup style={{ paddingBottom: '2rem' }}>
+                        <IndividualBlacklist masterIndex={index} control={control} setValue={setValue} participantOptions={participantOptions} />
+                        <Button type="button" onClick={() => remove(index)}>Delete: Blacklist {index + 1}</Button>
+                    </FormGroup>
+                </div>
             ))}
-            <Button type="button" onClick={() => append({ email: '' })}>Add Participant</Button>
+            <Button type="button" onClick={() => appendBlacklist()}>Add Blacklist</Button>
             <Button type="button" onClick={back}>Back</Button>
             <Button>Next</Button>
         </Form>

@@ -11,8 +11,12 @@ type RoundupParticipantsFormProps = {
 type FormValues = {
     participants: Participant[];
 }
+
+const defaultValues = {
+    participants: [{ name: '', email: '' }]
+}
 export default function RoundupParticipantsForm({ back, next }: RoundupParticipantsFormProps) {
-    const loadedParticipants = loadStoredData('roundupParticipants') || [{ name: 'default', email: 'de@default.com' }];
+    const loadedParticipants = loadStoredData('roundupParticipants') || defaultValues;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { register, handleSubmit, formState: { errors }, control } = useForm<FormValues>({
