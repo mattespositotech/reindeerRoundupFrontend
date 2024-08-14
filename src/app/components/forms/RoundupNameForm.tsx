@@ -22,7 +22,7 @@ export default function RoundupNameForm({next}: RoundupNameFormProps) {
         <Form onSubmit={handleSubmit(submit)}>
             <Form.Input
                 placeholder='List Name'
-                {...register('listName', { required: true })}
+                {...register('roundupName', { required: true })}
                 error={errors.listName && 'List name is required'}
             />
             <Button>Next</Button>

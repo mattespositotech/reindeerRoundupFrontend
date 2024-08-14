@@ -19,3 +19,7 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+.ui.card:hover {
+  opacity: 0.8;
+}

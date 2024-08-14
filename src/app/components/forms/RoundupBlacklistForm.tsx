@@ -34,7 +34,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
         });
     }
 
-    function onSubmit(data: FieldValues) {
+    function submit(data: FieldValues) {
         saveStoredData('roundupBlacklists', data);
         next();
     }
@@ -49,7 +49,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(submit)}>
             {fields.map((field, index) => (
                 <div key={field.id}>
                     <h2>Blacklist: {index + 1}</h2>

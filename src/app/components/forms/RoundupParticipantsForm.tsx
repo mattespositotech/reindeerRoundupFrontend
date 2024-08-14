@@ -1,5 +1,4 @@
 import { FieldValues, useFieldArray, useForm } from "react-hook-form";
-import { Participant } from "../../types/FormTypes";
 import { Button, Form, FormGroup, FormInput } from "semantic-ui-react";
 import { loadStoredData, saveStoredData } from "../../utils/Session";
 
@@ -9,7 +8,7 @@ type RoundupParticipantsFormProps = {
 }
 
 const defaultValues = {
-    participants: [{ name: '', email: '' }]
+    participants: [{ name: 'Matt', email: 'matt@gmail.com' }, {name:'Des', email:'des@gmail.com'}]
 }
 export default function RoundupParticipantsForm({ back, next }: RoundupParticipantsFormProps) {
     const loadedParticipants = loadStoredData('roundupParticipants') || defaultValues;
@@ -23,12 +22,12 @@ export default function RoundupParticipantsForm({ back, next }: RoundupParticipa
         control
     })
 
-    function onSubmit(data: FieldValues) {
+    function submit(data: FieldValues) {
         saveStoredData('roundupParticipants', data)
         next()
     }
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(submit)}>
             {fields.map((field, index) => (
                 <FormGroup widths='equal' key={field.id}>
                     <FormInput placeholder="Participant's Name" {...register(`participants.${index}.name`)} />

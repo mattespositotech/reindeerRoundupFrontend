@@ -11,6 +11,7 @@ export default function NavBar() {
             </MenuItem>
             <MenuItem name='About' as={NavLink} to='/about' />
             <MenuItem name='How It Works' as={NavLink} to='/howItWorks' />
+            <MenuItem name='Your Roundups' as={NavLink} to='/roundup/user' />
             <MenuItem position="right">
                 <Button basic content="Sign In" as={NavLink} to='/signIn' />
             </MenuItem>
