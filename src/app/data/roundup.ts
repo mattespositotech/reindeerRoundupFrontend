@@ -1,26 +1,17 @@
-import { useEffect, useState } from "react";
-import { RoundupMinimal } from "../types/RoundupTypes";
-import { getData, saveData } from "./crud";
+import { Roundup, RoundupMinimal } from "../types/RoundupTypes";
+import { saveData } from "./crudFunctions";
+import { useFetchData } from "./crudHooks";
 
 const baseUrl = "http://127.0.0.1:10000/";
 
 function useGetRoundupsByUser(email: string) {
-  const [loading, setLoading] = useState(false);
-  const [roundups, setRoundups] = useState<RoundupMinimal[]>([]);
-  const url = baseUrl + `roundup?email=${email}`;
+  const url = `${baseUrl}user/roundups?email=${email}`;
+  return useFetchData<RoundupMinimal[]>(url);
+}
 
-  useEffect(() => {
-    async function fetchRoundups() {
-      setLoading(true);
-      const data = await getData<RoundupMinimal[]>(url);
-      setRoundups(data);
-      setLoading(false);
-    }
-
-    fetchRoundups();
-  }, [url]);
-
-  return { roundups, loading };
+function useGetRoundupById(id: string) {
+  const url = `${baseUrl}roundup?id=${id}`;
+  return useFetchData<Roundup>(url);
 }
 
 // add type for roundup on submit
@@ -31,4 +22,4 @@ async function addRoundupByUser(email: string, data: any) {
   await saveData(url, data);
 }
 
-export { useGetRoundupsByUser, addRoundupByUser };
+export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser };
