@@ -1,13 +1,10 @@
 import { CardGroup, Header, Loader } from "semantic-ui-react"
 import { useGetRoundupsByUser } from "../../data/roundup"
 import RoundupTile from "../../components/roundups/RoundupTile";
+import { useGetUser } from "../../context/userContext";
 
 export default function UsersRoundupPage() {
-    // eventually from user contenxt
-    const user = {
-        name: 'Test User',
-        email: 'test@gmail.com'
-    }
+    const user = useGetUser();
 
     const { data: roundups, loading } = useGetRoundupsByUser(user.email)
 
