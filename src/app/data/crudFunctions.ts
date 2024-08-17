@@ -33,7 +33,7 @@ async function saveData<T>(url: string, data: T): Promise<void> {
             throw new Error(`HTTP Error: ${response.status}`);
         }
 
-        const responseData = await response.json(); // Parse the JSON response
+        const responseData = await response.json();
         console.log('Success:', responseData);
     } catch (error) {
         console.error('Error:', error);

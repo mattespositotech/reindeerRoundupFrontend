@@ -1,8 +1,12 @@
-export interface Participant {
-    name: string;
-    email: string;
+export interface ParticipantForm {
+  name: string;
+  email: string;
 }
 
-export interface Blacklist {
-    list: number[];
+export interface BlacklistForm {
+  blacklist: BlacklistFormItem[];
+}
+
+export interface BlacklistFormItem {
+  email: string;
 }

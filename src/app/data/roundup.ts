@@ -14,9 +14,8 @@ function useGetRoundupById(id: string) {
   return useFetchData<Roundup>(url);
 }
 
-// add type for roundup on submit
 // change to hook
-async function addRoundupByUser(email: string, data: any) {
+async function addRoundupByUser(email: string, data: Roundup) {
   const url = baseUrl + `roundup/add?email=${email}`;
 
   await saveData(url, data);

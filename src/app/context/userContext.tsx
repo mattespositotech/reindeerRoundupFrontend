@@ -1,7 +1,7 @@
 function useGetUser() {
     const user = {
         name: 'Test User',
-        email: 'test@gmail.com'
+        email: 'testing@gmail.com'
     }
 
     return user

@@ -3,6 +3,8 @@ import { Container, Header, HeaderContent, Icon, Label, Loader } from "semantic-
 import { useGetRoundupById } from "../../data/roundup";
 import ParticipantsTable from "./ParticipantsTable";
 import ListOfBlacklists from "./ListOfBlacklists";
+import { colorToStatus } from "../../utils/Colors";
+import { statusDisplayName } from "../../enums/RoundupEnums";
 
 export default function RoundupDetails() {
     const { id } = useParams();
@@ -15,7 +17,7 @@ export default function RoundupDetails() {
                 <>
                     <Header as='h1'>
                         <HeaderContent style={{paddingRight: '1em'}}>{roundup.name}</HeaderContent>
-                        <Label tag color='green'>Active</Label></Header>
+                        <Label tag color={colorToStatus(roundup.status)}>{statusDisplayName[roundup.status]}</Label></Header>
                     <Header as='h3'><Icon name='calendar' />Launch Date: {roundup.date}</Header>
                     {roundup.message && <>
                         <Header as='h3'><Icon name='envelope' />Message Sent To Participants</Header>

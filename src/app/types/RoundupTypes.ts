@@ -4,7 +4,7 @@ import { status as userStatus } from "../enums/UserEnums";
 export interface Roundup {
   _id: string;
   participants: Participant[];
-  blacklist: number[][];
+  blacklist: string[][];
   date: string;
   message: string;
   name: string;

@@ -1,8 +1,9 @@
 import { FieldValues, useFieldArray, useForm } from "react-hook-form";
-import { Participant } from "../../types/FormTypes";
+import { ParticipantForm } from "../../types/FormTypes";
 import { loadStoredData, saveStoredData } from "../../utils/Session";
 import { Button, Form, FormGroup } from "semantic-ui-react";
 import IndividualBlacklist from "./NestedComponents/IndividualBlacklist";
+import { roundupLocalStorage } from "../../enums/RoundupEnums";
 
 
 interface RoundupBlacklistFormProps {
@@ -20,7 +21,7 @@ const defaultValues = {
 }
 
 export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFormProps) {
-    const loadedBlacklists = loadStoredData('roundupBlacklists') || defaultValues;
+    const loadedBlacklists = loadStoredData(roundupLocalStorage.blacklist) || defaultValues;
     const { handleSubmit, control, getValues, setValue } = useForm({ defaultValues: loadedBlacklists });
     const { fields, remove } = useFieldArray({
         name: 'masterBlacklist',
@@ -28,14 +29,14 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     })
 
     function participantOptions() {
-        const { participants } = loadStoredData('roundupParticipants')
-        return (participants || []).map((participant: Participant) => {
+        const { participants } = loadStoredData(roundupLocalStorage.participants)
+        return (participants || []).map((participant: ParticipantForm) => {
             return { text: participant.name, value: participant.email };
         });
     }
 
     function submit(data: FieldValues) {
-        saveStoredData('roundupBlacklists', data);
+        saveStoredData(roundupLocalStorage.blacklist, data);
         next();
     }
 
