@@ -16,7 +16,7 @@ export function submitRoundup(email: string) {
 }
 
 function getInnerStoredDataByKey(key: string) {
-  if (key !== roundupLocalStorage.blacklist) {
+  if (key !== roundupLocalStorage.blacklists) {
     const storedData = loadStoredData(key);
     return storedData[key];
   } else {
@@ -25,7 +25,7 @@ function getInnerStoredDataByKey(key: string) {
 }
 
 function convertBlacklistsToRoundupFormat() {
-  const { masterBlacklist } = loadStoredData(roundupLocalStorage.blacklist);
+  const { masterBlacklist } = loadStoredData(roundupLocalStorage.blacklists);
   return masterBlacklist.map((subBlacklist: BlacklistForm) => {
     return subBlacklist.blacklist.map((entry) => entry.email);
   });

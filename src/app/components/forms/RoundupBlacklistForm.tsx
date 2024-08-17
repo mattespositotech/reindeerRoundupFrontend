@@ -21,7 +21,7 @@ const defaultValues = {
 }
 
 export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFormProps) {
-    const loadedBlacklists = loadStoredData(roundupLocalStorage.blacklist) || defaultValues;
+    const loadedBlacklists = loadStoredData(roundupLocalStorage.blacklists) || defaultValues;
     const { handleSubmit, control, getValues, setValue } = useForm({ defaultValues: loadedBlacklists });
     const { fields, remove } = useFieldArray({
         name: 'masterBlacklist',
@@ -36,7 +36,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     }
 
     function submit(data: FieldValues) {
-        saveStoredData(roundupLocalStorage.blacklist, data);
+        saveStoredData(roundupLocalStorage.blacklists, data);
         next();
     }
 

@@ -25,7 +25,7 @@ export default function RoundupDetails() {
                     <Header as='h3'><Icon name='user'/>Participants</Header>
                     <ParticipantsTable participants={roundup.participants} />
                     <Header as='h3'><Icon name='ban' />Blacklists</Header>
-                    <ListOfBlacklists blacklists={roundup.blacklist} particpipants={roundup.participants} />
+                    <ListOfBlacklists blacklists={roundup.blacklists} particpipants={roundup.participants} />
                 </>
             }
         </Container>

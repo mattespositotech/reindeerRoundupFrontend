@@ -13,7 +13,7 @@ export enum statusDisplayName {
 export enum roundupLocalStorage {
   name = "name",
   participants = "participants",
-  blacklist = "blacklist",
+  blacklists = "blacklists",
   date = "date",
   message = "message",
 }
