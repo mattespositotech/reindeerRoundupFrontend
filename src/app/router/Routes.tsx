@@ -5,6 +5,8 @@ import HomePage from "../layout/pages/HomePage";
 import SignInPage from "../layout/pages/SignInPage";
 import UsersRoundupPage from "../layout/pages/UsersRoundupPage";
 import RoundupDetails from "../components/roundups/RoundupDetails";
+import AcceptPage from "../layout/pages/AcceptPage";
+import DeclinePage from "../layout/pages/DeclinePage";
 
 export const router = createBrowserRouter([
     {
@@ -15,7 +17,9 @@ export const router = createBrowserRouter([
             { path: '/roundup', element: <RoundupPage /> },
             { path: '/signIn', element: <SignInPage /> },
             { path: '/roundup/user', element: <UsersRoundupPage /> },
-            { path: '/roundup/:id', element: <RoundupDetails /> }
+            { path: '/roundup/:id', element: <RoundupDetails /> },
+            { path: '/roundup/accept/:id/:email', element: <AcceptPage />},
+            { path: '/roundup/decline/:id/:email', element: <DeclinePage />}
         ]
     }
 ])
