@@ -18,8 +18,8 @@ export const router = createBrowserRouter([
             { path: '/signIn', element: <SignInPage /> },
             { path: '/roundup/user', element: <UsersRoundupPage /> },
             { path: '/roundup/:id', element: <RoundupDetails /> },
-            { path: '/roundup/accept/:id/:email', element: <AcceptPage />},
-            { path: '/roundup/decline/:id/:email', element: <DeclinePage />}
+            { path: '/roundup/accept/:id/:uuid', element: <AcceptPage /> },
+            { path: '/roundup/decline/:id/:uuid', element: <DeclinePage /> }
         ]
     }
 ])

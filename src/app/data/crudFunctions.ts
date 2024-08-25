@@ -19,25 +19,20 @@ async function getData<T>(url: string): Promise<T> {
     }
 }
 
-async function saveData<T>(url: string, data: T): Promise<void> {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        });
+async function saveData<T, U>(url: string, data: T): Promise<U> {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 
-        if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status}`);
-        }
-
-        const responseData = await response.json();
-        console.log('Success:', responseData);
-    } catch (error) {
-        console.error('Error:', error);
+    if (!response.ok) {
+        throw new Error(`HTTP Error: ${response.status}`);
     }
+
+    return await response.json();
 }
 
 export {getData, saveData}

@@ -1,6 +1,6 @@
 import { Roundup, RoundupMinimal } from "../types/RoundupTypes";
 import { saveData } from "./crudFunctions";
-import { useFetchData } from "./crudHooks";
+import { useFetchData, useSaveData } from "./crudHooks";
 
 const baseUrl = "http://127.0.0.1:10000/";
 
@@ -21,4 +21,26 @@ async function addRoundupByUser(email: string, data: Roundup) {
   await saveData(url, data);
 }
 
-export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser };
+function useUpdateParticipantToAccepted() {
+  const {save, loading, returnData: data} = useSaveData<{id: string; uuid: string}, string>();
+
+    const mutate = async (id: string, uuid: string) => {
+    const url = baseUrl + "roundup/participant/accept";
+    await save(url, { id, uuid });
+  };
+
+  return { mutate, loading, data };
+}
+
+function useUpdateParticipantToDecline() {
+  const {save, loading, returnData: data} = useSaveData<{id: string; uuid: string}, string>();
+
+    const mutate = async (id: string, uuid: string) => {
+    const url = baseUrl + "roundup/participant/decline";
+    await save(url, { id, uuid });
+  };
+
+  return { mutate, loading, data };
+}
+
+export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser, useUpdateParticipantToAccepted, useUpdateParticipantToDecline };

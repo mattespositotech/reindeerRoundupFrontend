@@ -1,12 +1,33 @@
 import { useParams } from "react-router-dom";
+import { Container, Icon, Loader, Message, MessageContent, MessageHeader } from "semantic-ui-react";
+import { useUpdateParticipantToAccepted } from "../../data/roundup";
+import { useEffect } from "react";
 
 export default function AcceptPage() {
-    const { id, email } = useParams();
+    const { id, uuid } = useParams();
+    const { mutate, loading, data } = useUpdateParticipantToAccepted();
+    
+    const declineUrl = `/roundup/decline/${id}/${uuid}`
+    
+    useEffect(() => {
+        mutate(id || "", uuid || "")
+    }, [id, uuid])
+
     return (
-        <div style={{ marginTop: '5em' }}>
-            <h2 color="green">Accept Page</h2>
-            <p>{id}</p>
-            <p>{email}</p>
-        </div>
+        <Container style={{ marginTop: '5em' }} textAlign="center">
+            <Loader active={loading} inline />
+            {data &&
+                <Container>
+                    <Message size="massive" color="green">
+                        <MessageHeader as='h1'>You have accepted the invite to join:</MessageHeader>
+                        <MessageHeader as='h1' style={{ marginTop: '1rem' }}>{data}</MessageHeader>
+                        <MessageContent style={{ marginTop: '1rem' }}>You may now exit this page</MessageContent>
+                    </Message>
+                    <Message attached='bottom' warning>
+                        <Icon name="exclamation" />
+                        Clicked the wrong button: <a href={declineUrl}>Decline Instead</a>
+                    </Message>
+                </Container>}
+        </Container>
     )
 }
