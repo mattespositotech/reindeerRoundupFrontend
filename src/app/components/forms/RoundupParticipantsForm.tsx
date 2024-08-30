@@ -10,7 +10,13 @@ type RoundupParticipantsFormProps = {
 
 // remove after testing
 const defaultValues = {
-    participants: [{ name: 'Matt', email: 'matt@gmail.com' }, { name: 'Des', email: 'des@gmail.com' }]
+    participants: [
+        { name: 'Matt', email: 'matt.joseph.esposito@gmail.com' }, 
+        { name: 'Andrew', email: 'andrew@test.com' },
+        { name: 'Brian', email: 'brian@test.com' },
+        { name: 'David', email: 'david@test.com' },
+        { name: 'Kerry', email: 'kerry@test.com' }
+    ]
 }
 export default function RoundupParticipantsForm({ back, next }: RoundupParticipantsFormProps) {
     const loadedParticipants = loadStoredData(roundupLocalStorage.participants) || defaultValues;

@@ -5,6 +5,7 @@ import ParticipantsTable from "./ParticipantsTable";
 import ListOfBlacklists from "./ListOfBlacklists";
 import { colorToStatus } from "../../utils/Colors";
 import { statusDisplayName } from "../../enums/RoundupEnums";
+import ActionsToolbar from "./ActionsToolbar";
 
 export default function RoundupDetails() {
     const { id } = useParams();
@@ -26,6 +27,8 @@ export default function RoundupDetails() {
                     <ParticipantsTable participants={roundup.participants} />
                     <Header as='h3'><Icon name='ban' />Blacklists</Header>
                     <ListOfBlacklists blacklists={roundup.blacklists} particpipants={roundup.participants} />
+                    <Header as='h3'><Icon name='bolt'/>Actions</Header>
+                    <ActionsToolbar roundup={roundup}/>
                 </>
             }
         </Container>

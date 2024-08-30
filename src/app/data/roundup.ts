@@ -43,4 +43,15 @@ function useUpdateParticipantToDecline() {
   return { mutate, loading, data };
 }
 
-export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser, useUpdateParticipantToAccepted, useUpdateParticipantToDecline };
+function useSetAllParticipantsToAccepted() {
+  const {save, loading, returnData: data} = useSaveData<{id: string}, string>();
+
+    const mutate = async (id: string) => {
+    const url = baseUrl + "roundup/participants/allToAccepted";
+    await save(url, { id });
+  };
+
+  return { mutate, loading, data };
+}
+
+export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser, useUpdateParticipantToAccepted, useUpdateParticipantToDecline, useSetAllParticipantsToAccepted };
