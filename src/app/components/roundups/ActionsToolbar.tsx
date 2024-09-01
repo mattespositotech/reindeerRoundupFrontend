@@ -1,16 +1,19 @@
 import { Button, Icon } from "semantic-ui-react"
 import { Roundup } from "../../types/RoundupTypes"
 import { status as roundupStatus } from "../../enums/RoundupEnums"
-import { useSetAllParticipantsToAccepted } from "../../data/roundup"
+import { useLaunchRoundup, useSetAllParticipantsToAccepted } from "../../data/roundup"
 import { useNavigate } from "react-router-dom"
 import { status as userStatus } from "../../enums/UserEnums"
 
 type ActionsToolbarProps = {
-    roundup: Roundup
+    roundup: Roundup;
+    seeMatches: boolean;
+    toggleMatches: () => void;
 }
-export default function ActionsToolbar({ roundup }: ActionsToolbarProps) {
+export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: ActionsToolbarProps) {
     const navigate = useNavigate();
-    const { mutate, loading } = useSetAllParticipantsToAccepted();
+    const setAllAccepted = useSetAllParticipantsToAccepted();
+    const launchRoundup = useLaunchRoundup();
 
     // replace with env check
     const testEnv = true;
@@ -20,23 +23,26 @@ export default function ActionsToolbar({ roundup }: ActionsToolbarProps) {
     return (
         <div>
             {displayAcceptBtn && <Button icon labelPosition="left" color='green' onClick={() => {
-                mutate(roundup._id);
+                setAllAccepted.mutate(roundup._id);
                 navigate(0)
             }
             }
-                loading={loading}>
+                loading={setAllAccepted.loading}>
                 <Icon name='check circle' />
                 Set Everyone To Accepted
             </Button>}
             {roundup.status === roundupStatus.inProgress &&
-                <Button icon labelPosition="left" color='blue'>
+                <Button icon labelPosition="left" color='blue' onClick={() => {
+                    launchRoundup.mutate(roundup._id); 
+                    navigate(0);
+                }} loading={launchRoundup.loading}>
                     <Icon name='shipping fast' />
                     Launch Early
                 </Button>}
             {roundup.status === roundupStatus.complete &&
-                <Button icon labelPosition="left" color='purple'>
+                <Button icon labelPosition="left" color='purple' onClick={toggleMatches}>
                     <Icon name='eye' />
-                    See Matches
+                    {seeMatches ? 'Hide' : 'See'} Matches
                 </Button>}
         </div>
     )

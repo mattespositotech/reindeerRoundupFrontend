@@ -22,9 +22,13 @@ async function addRoundupByUser(email: string, data: Roundup) {
 }
 
 function useUpdateParticipantToAccepted() {
-  const {save, loading, returnData: data} = useSaveData<{id: string; uuid: string}, string>();
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<{ id: string; uuid: string }, string>();
 
-    const mutate = async (id: string, uuid: string) => {
+  const mutate = async (id: string, uuid: string) => {
     const url = baseUrl + "roundup/participant/accept";
     await save(url, { id, uuid });
   };
@@ -33,9 +37,13 @@ function useUpdateParticipantToAccepted() {
 }
 
 function useUpdateParticipantToDecline() {
-  const {save, loading, returnData: data} = useSaveData<{id: string; uuid: string}, string>();
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<{ id: string; uuid: string }, string>();
 
-    const mutate = async (id: string, uuid: string) => {
+  const mutate = async (id: string, uuid: string) => {
     const url = baseUrl + "roundup/participant/decline";
     await save(url, { id, uuid });
   };
@@ -44,9 +52,13 @@ function useUpdateParticipantToDecline() {
 }
 
 function useSetAllParticipantsToAccepted() {
-  const {save, loading, returnData: data} = useSaveData<{id: string}, string>();
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<{ id: string }, string>();
 
-    const mutate = async (id: string) => {
+  const mutate = async (id: string) => {
     const url = baseUrl + "roundup/participants/allToAccepted";
     await save(url, { id });
   };
@@ -54,4 +66,27 @@ function useSetAllParticipantsToAccepted() {
   return { mutate, loading, data };
 }
 
-export { useGetRoundupsByUser, useGetRoundupById, addRoundupByUser, useUpdateParticipantToAccepted, useUpdateParticipantToDecline, useSetAllParticipantsToAccepted };
+function useLaunchRoundup() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<{ id: string }, string>();
+
+  const mutate = async (id: string) => {
+    const url = baseUrl + "roundup/launch";
+    await save(url, { id });
+  };
+
+  return { mutate, loading, data };
+}
+
+export {
+  useGetRoundupsByUser,
+  useGetRoundupById,
+  addRoundupByUser,
+  useUpdateParticipantToAccepted,
+  useUpdateParticipantToDecline,
+  useSetAllParticipantsToAccepted,
+  useLaunchRoundup,
+};

@@ -1,19 +1,14 @@
 import { Grid, GridColumn, Header, List, ListItem, Segment } from "semantic-ui-react";
-import { Participant } from "../../types/RoundupTypes";
+import { ParticipantDictionary } from "../../types/RoundupTypes";
+
 
 type ListOfBlacklistsProps = {
     blacklists: string[][];
-    particpipants: Participant[];
+    participantDictionary: ParticipantDictionary;
 }
 
-function createParticipantDictionary(participants: Participant[]): { [email: string]: string } {
-    return participants.reduce((acc, participant) => {
-        acc[participant.email] = participant.name;
-        return acc;
-    }, {} as { [email: string]: string });
-}
-export default function ListOfBlacklists({ blacklists, particpipants }: ListOfBlacklistsProps) {
-    const participantDictionary = createParticipantDictionary(particpipants);
+export default function ListOfBlacklists({ blacklists, participantDictionary }: ListOfBlacklistsProps) {
+    
     return (
         <Grid columns={3}>
             {blacklists.map(((blacklist, index) => (

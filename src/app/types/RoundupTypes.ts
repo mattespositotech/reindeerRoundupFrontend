@@ -9,6 +9,11 @@ export interface Roundup {
   message: string;
   name: string;
   status: roundupStatus;
+  matches?: Matches;
+}
+
+export interface Matches {
+  [key: string]: string;
 }
 
 export interface Participant {
@@ -23,4 +28,8 @@ export interface RoundupMinimal {
   date: string;
   status: roundupStatus;
   _id: string;
+}
+
+export interface ParticipantDictionary {
+  [email: string]: string;
 }
