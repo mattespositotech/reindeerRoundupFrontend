@@ -4,7 +4,7 @@ import { Roundup } from "../../types/RoundupTypes";
 import { loadStoredData } from "../../utils/Session";
 import { addRoundupByUser } from "../roundup";
 
-export function submitRoundup(email: string) {
+export async function submitRoundup(email: string) {
   const roundup: Partial<Roundup> = {};
 
   const keys = Object.keys(roundupLocalStorage);
@@ -12,7 +12,7 @@ export function submitRoundup(email: string) {
     roundup[key as keyof Roundup] = getInnerStoredDataByKey(key);
   });
 
-  addRoundupByUser(email, roundup as Roundup)
+  await addRoundupByUser(email, roundup as Roundup)
 }
 
 function getInnerStoredDataByKey(key: string) {
