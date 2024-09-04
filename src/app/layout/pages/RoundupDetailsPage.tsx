@@ -45,7 +45,7 @@ export default function RoundupDetailsPage() {
                     <ListOfBlacklists blacklists={roundup.blacklists} participantDictionary={participantDictionary} />
                     <Header as='h3'><Icon name='bolt' />Actions</Header>
                     <ActionsToolbar roundup={roundup} seeMatches={seeMatches} toggleMatches={toggleMatches} />
-                    <MatchesTable matches={roundup.matches} display={seeMatches} participantDictionary={participantDictionary} matchesFileName={matchesFileName} />
+                    {seeMatches && <MatchesTable matches={roundup.matches} matchesFileName={matchesFileName} />}
                 </>
             }
         </Container>

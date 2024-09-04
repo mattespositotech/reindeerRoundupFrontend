@@ -1,18 +1,15 @@
 import { Segment, Table, TableHeader, TableRow, TableHeaderCell, TableBody, TableCell, Container } from "semantic-ui-react"
-import { Matches, ParticipantDictionary } from "../../types/RoundupTypes"
+import { Matches } from "../../types/RoundupTypes"
 import DownloadAsCsvButton from "./DownloadAsCsvButton";
 
 type MatchesTableProps = {
     matches?: Matches;
-    display: boolean;
-    participantDictionary: ParticipantDictionary;
     matchesFileName: string;
 }
-export default function MatchesTable({ matches, display, participantDictionary, matchesFileName }: MatchesTableProps) {
+export default function MatchesTable({ matches, matchesFileName }: MatchesTableProps) {
     return (
         <>
-            {display &&
-                matches &&
+            {matches &&
                 <Segment raised>
                     <Table padded>
                         <TableHeader>
@@ -24,8 +21,8 @@ export default function MatchesTable({ matches, display, participantDictionary, 
                         <TableBody>
                             {Object.entries(matches).map(([giver, reciever]) => (
                                 <TableRow key={giver}>
-                                    <TableCell>{participantDictionary[giver]}</TableCell>
-                                    <TableCell>{participantDictionary[reciever]}</TableCell>
+                                    <TableCell>{giver}</TableCell>
+                                    <TableCell>{reciever}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

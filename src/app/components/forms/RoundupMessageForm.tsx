@@ -5,11 +5,13 @@ import { roundupLocalStorage } from "../../enums/RoundupEnums";
 import { submitRoundup } from "../../data/actions/submitRoundup";
 import { useGetUser } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type RoundupMessageFormProps = {
   back: () => void;
 }
 export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
+  const [loading, setLoading] = useState(false);
   const loadedMessage = loadStoredData(roundupLocalStorage.message);
   const user = useGetUser();
   const navigate = useNavigate();
@@ -17,8 +19,10 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
   const { register, handleSubmit } = useForm({ defaultValues: loadedMessage });
 
   async function submit(data: FieldValues) {
+    setLoading(true)
     saveStoredData(roundupLocalStorage.message, data)
     await submitRoundup(user.email)
+    setLoading(false)
     navigate('/roundup/user');
   }
   return (
@@ -28,7 +32,7 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
         {...register(roundupLocalStorage.message)}
       />
       <Button type="button" onClick={back}>Previous</Button>
-      <Button>Submit</Button>
+      <Button loading={loading}>Submit</Button>
     </Form>
   )
 }
