@@ -1,13 +1,11 @@
 import { Grid, GridColumn, Header, List, ListItem, Segment } from "semantic-ui-react";
-import { ParticipantDictionary } from "../../types/RoundupTypes";
 
 
 type ListOfBlacklistsProps = {
     blacklists: string[][];
-    participantDictionary: ParticipantDictionary;
 }
 
-export default function ListOfBlacklists({ blacklists, participantDictionary }: ListOfBlacklistsProps) {
+export default function ListOfBlacklists({ blacklists }: ListOfBlacklistsProps) {
     
     return (
         <Grid columns={3}>
@@ -16,8 +14,8 @@ export default function ListOfBlacklists({ blacklists, participantDictionary }: 
                     <Segment raised>
                         <Header as='h4'>Blacklist: {index + 1}</Header>
                         <List>
-                            {blacklist.map(email => (
-                                <ListItem key={email}>{participantDictionary[email]}</ListItem>
+                            {blacklist.map(name => (
+                                <ListItem key={name}>{name}</ListItem>
                             ))}
                         </List>
                     </Segment>

@@ -15,7 +15,7 @@ const defaultValues = {
     masterBlacklist: [
         {
             name: 'blacklist',
-            blacklist: [{ email: '' }]
+            blacklist: [{ name: '' }]
         }
     ]
 }
@@ -31,7 +31,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     function participantOptions() {
         const { participants } = loadStoredData(roundupLocalStorage.participants)
         return (participants || []).map((participant: ParticipantForm) => {
-            return { text: participant.name, value: participant.email };
+            return { text: participant.name, value: participant.name };
         });
     }
 
@@ -44,7 +44,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
         setValue("masterBlacklist", [...(getValues().masterBlacklist || []),
         {
             name: 'blacklist',
-            blacklist: [{ email: '' }]
+            blacklist: [{ name: '' }]
         }
         ])
     }

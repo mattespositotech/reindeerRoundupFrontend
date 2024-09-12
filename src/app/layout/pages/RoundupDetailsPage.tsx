@@ -7,15 +7,8 @@ import { colorToStatus } from "../../utils/Colors";
 import { statusDisplayName } from "../../enums/RoundupEnums";
 import ActionsToolbar from "../../components/roundups/ActionsToolbar";
 import MatchesTable from "../../components/roundups/MatchesTable";
-import { Participant } from "../../types/RoundupTypes";
 import { useState } from "react";
 
-function createParticipantDictionary(participants: Participant[] = []): { [email: string]: string } {
-    return participants.reduce((acc, participant) => {
-        acc[participant.email] = participant.name;
-        return acc;
-    }, {} as { [email: string]: string });
-}
 
 export default function RoundupDetailsPage() {
     const { id } = useParams();
@@ -25,7 +18,6 @@ export default function RoundupDetailsPage() {
 
     const toggleMatches = () => setSeeMatches(!seeMatches);
 
-    const participantDictionary = createParticipantDictionary(roundup?.participants);
     const matchesFileName = `${roundup?.name} Matches`;
     return (
         <Container style={{ marginTop: '5em' }}>
@@ -42,7 +34,7 @@ export default function RoundupDetailsPage() {
                     <Header as='h3'><Icon name='user' />Participants</Header>
                     <ParticipantsTable participants={roundup.participants} />
                     <Header as='h3'><Icon name='ban' />Blacklists</Header>
-                    <ListOfBlacklists blacklists={roundup.blacklists} participantDictionary={participantDictionary} />
+                    <ListOfBlacklists blacklists={roundup.blacklists} />
                     <Header as='h3'><Icon name='bolt' />Actions</Header>
                     <ActionsToolbar roundup={roundup} seeMatches={seeMatches} toggleMatches={toggleMatches} />
                     {seeMatches && <MatchesTable matches={roundup.matches} matchesFileName={matchesFileName} />}
