@@ -8,21 +8,10 @@ type RoundupParticipantsFormProps = {
     next: () => void;
 }
 
-// remove after testing
-const defaultValues = {
-    participants: [
-        { name: 'Matt', email: 'matt.joseph.esposito@gmail.com' }, 
-        { name: 'Andrew', email: 'andrew@test.com' },
-        { name: 'Brian', email: 'brian@test.com' },
-        { name: 'David', email: 'david@test.com' },
-        { name: 'Kerry', email: 'kerry@test.com' }
-    ]
-}
 export default function RoundupParticipantsForm({ back, next }: RoundupParticipantsFormProps) {
-    const loadedParticipants = loadStoredData(roundupLocalStorage.participants) || defaultValues;
+    const loadedParticipants = loadStoredData(roundupLocalStorage.participants);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { register, handleSubmit, formState: { errors }, control } = useForm({
+    const { register, handleSubmit, control } = useForm({
         defaultValues: loadedParticipants
     })
     const { fields, append, remove } = useFieldArray({

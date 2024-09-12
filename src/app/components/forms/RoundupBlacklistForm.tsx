@@ -11,17 +11,8 @@ interface RoundupBlacklistFormProps {
     next: () => void;
 }
 
-const defaultValues = {
-    masterBlacklist: [
-        {
-            name: 'blacklist',
-            blacklist: [{ name: '' }]
-        }
-    ]
-}
-
 export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFormProps) {
-    const loadedBlacklists = loadStoredData(roundupLocalStorage.blacklists) || defaultValues;
+    const loadedBlacklists = loadStoredData(roundupLocalStorage.blacklists);
     const { handleSubmit, control, getValues, setValue } = useForm({ defaultValues: loadedBlacklists });
     const { fields, remove } = useFieldArray({
         name: 'masterBlacklist',
