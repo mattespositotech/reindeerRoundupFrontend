@@ -7,6 +7,8 @@ import UsersRoundupPage from "../layout/pages/UsersRoundupPage";
 import RoundupDetailsPage from "../layout/pages/RoundupDetailsPage";
 import AcceptPage from "../layout/pages/AcceptPage";
 import DeclinePage from "../layout/pages/DeclinePage";
+import AboutUsPage from "../layout/pages/AboutUsPage";
+import HowItWorksPage from "../layout/pages/HowItWorksPage";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +16,8 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
             { path: '/', element: <HomePage /> },
+            { path: '/about', element: <AboutUsPage /> },
+            { path: '/howItWorks', element: <HowItWorksPage /> },
             { path: '/roundup', element: <RoundupPage /> },
             { path: '/signIn', element: <SignInPage /> },
             { path: '/roundup/user', element: <UsersRoundupPage /> },
