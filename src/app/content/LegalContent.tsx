@@ -1,6 +1,6 @@
 import { Container, Divider, Header } from "semantic-ui-react"
 
-function privacyPolicy() {
+function PrivacyPolicy() {
     return (
         <Container>
             <Header as='h1' textAlign="center">Privacy Policy</Header>
@@ -82,7 +82,7 @@ function privacyPolicy() {
     )
 }
 
-function termsAndConditions() {
+function TermsAndConditions() {
     return (
         <Container>
             <Header as='h1' textAlign="center">Terms and Conditions </Header>
@@ -202,4 +202,4 @@ function termsAndConditions() {
     )
 }
 
-export { privacyPolicy, termsAndConditions }
+export { PrivacyPolicy, TermsAndConditions }
