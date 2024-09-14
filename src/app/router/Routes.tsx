@@ -11,6 +11,7 @@ import AboutUsPage from "../layout/pages/AboutUsPage";
 import HowItWorksPage from "../layout/pages/HowItWorksPage";
 import TermsAndConditionsPage from "../layout/pages/TermsAndConditionsPage";
 import PrivacyPolicyPage from "../layout/pages/PrivacyPolicyPage";
+import NotFoundPage from "../layout/pages/NotFoundPage";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,8 @@ export const router = createBrowserRouter([
             { path: '/roundup/user', element: <UsersRoundupPage /> },
             { path: '/roundup/:id', element: <RoundupDetailsPage /> },
             { path: '/roundup/accept/:id/:uuid', element: <AcceptPage /> },
-            { path: '/roundup/decline/:id/:uuid', element: <DeclinePage /> }
+            { path: '/roundup/decline/:id/:uuid', element: <DeclinePage /> },
+            { path: '*', element: <NotFoundPage />}
         ]
     }
 ])
