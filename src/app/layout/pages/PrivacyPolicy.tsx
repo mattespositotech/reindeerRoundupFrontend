@@ -1,4 +1,4 @@
-import { privacyPolicy } from "../../content/PrivacyPolicyContent";
+import { privacyPolicy } from "../../content/LegalContent";
 
 export default function PrivacyPolicy() {
     return (

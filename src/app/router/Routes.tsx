@@ -10,6 +10,7 @@ import DeclinePage from "../layout/pages/DeclinePage";
 import AboutUsPage from "../layout/pages/AboutUsPage";
 import HowItWorksPage from "../layout/pages/HowItWorksPage";
 import PrivacyPolicy from "../layout/pages/PrivacyPolicy";
+import TermsAndConditionsPage from "../layout/pages/TermsAndConditionsPage";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
             { path: '/roundup', element: <RoundupPage /> },
             { path: '/signIn', element: <SignInPage /> },
             { path: 'privacyPolicy', element: <PrivacyPolicy /> },
+            { path: '/termsAndConditions', element: <TermsAndConditionsPage /> },
             { path: '/roundup/user', element: <UsersRoundupPage /> },
             { path: '/roundup/:id', element: <RoundupDetailsPage /> },
             { path: '/roundup/accept/:id/:uuid', element: <AcceptPage /> },

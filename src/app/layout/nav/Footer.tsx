@@ -24,7 +24,7 @@ export default function Footer() {
                             <ListItem as={Link} to='/howItWorks'>How It Works</ListItem>
                             <ListItem as={Link} to='/signIn'>Register</ListItem>
                             <ListItem as={Link} to='privacyPolicy'>Privacy Policy</ListItem>
-                            <ListItem as='a'>Terms and Conditions</ListItem>
+                            <ListItem as={Link} to='/termsAndConditions'>Terms and Conditions</ListItem>
                         </List>
                     </GridColumn>
                     <GridColumn width={4}>
