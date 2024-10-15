@@ -1,38 +1,86 @@
+async function handleFetchResponse(response: Response) {
+    if (!response.ok) {
+        throw new Error(`HTTP Error: ${response.status}`);
+    }
+    return await response.json();
+}
+
 async function getData<T>(url: string): Promise<T> {
+    let response: Response;
+
     try {
-        const response = await fetch(url, {
-            method: 'Get',
+        response = await fetch(url, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
     } catch (error) {
         console.error('Error fetching data:', error);
         throw error;
     }
+
+    return await handleFetchResponse(response);
 }
 
 async function saveData<T, U>(url: string, data: T): Promise<U> {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
+    let response: Response;
 
-    if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`);
+    try {
+        response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error('Error saving data:', error);
+        throw error;
     }
 
-    return await response.json();
+    return await handleFetchResponse(response);
 }
 
-export {getData, saveData}
+async function getAuthorizedData<T>(url: string): Promise<T> {
+    const token = localStorage.getItem('token');
+    let response: Response;
+
+    try {
+        response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+
+    return await handleFetchResponse(response);
+}
+
+async function saveAuthorizedData<T, U>(url: string, data: T): Promise<U> {
+    const token = localStorage.getItem('token');
+    let response: Response;
+
+    try {
+        response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error('Error saving data:', error);
+        throw error;
+    }
+
+    return await handleFetchResponse(response);
+}
+
+export {getData, saveData, getAuthorizedData, saveAuthorizedData}

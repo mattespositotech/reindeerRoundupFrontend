@@ -1,9 +1,6 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { Button, Form, Header, Segment } from "semantic-ui-react";
-
-function signInSubmit(data: FieldValues) {
-    console.log(data)
-}
+import { useSignIn } from "../data/user";
 
 function forgotPasswordSubmit(data: FieldValues) {
     console.log(data)
@@ -21,6 +18,13 @@ function SignInContent({ setDisplay }: DisplayProps) {
     const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({
         mode: 'onTouched'
     });
+
+    const { mutate } = useSignIn();
+
+    async function signInSubmit(data: FieldValues) {
+        console.log(await mutate(data['email'], data['password']))
+        //console.log(returnData)
+    }
 
     return (
         <Segment>
