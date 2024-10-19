@@ -1,6 +1,8 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { Button, Form, Header, Segment } from "semantic-ui-react";
-import { useSignIn } from "../data/user";
+import { Button, Form, Header, Message, MessageHeader, Segment } from "semantic-ui-react";
+import { useUserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function forgotPasswordSubmit(data: FieldValues) {
     console.log(data)
@@ -18,18 +20,29 @@ function SignInContent({ setDisplay }: DisplayProps) {
     const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({
         mode: 'onTouched'
     });
+    const [error, setError] = useState(false);
 
-    const { mutate } = useSignIn();
+    const userContext = useUserContext();
+    const navigate = useNavigate();
 
     async function signInSubmit(data: FieldValues) {
-        console.log(await mutate(data['email'], data['password']))
-        //console.log(returnData)
+        try {
+            await userContext.signInUser(data['email'], data['password'])
+            navigate('/')
+        } catch (error) {
+            setError(true)
+        }
     }
 
     return (
         <Segment>
             <Header as='h2'>Sign In To Your Account</Header>
             <p>Your account stores all your reindeer roundup information</p>
+            {error &&
+                <Message negative>
+                    <MessageHeader>Invalid Email or Password</MessageHeader>
+                </Message>
+            }
             <Form onSubmit={handleSubmit(signInSubmit)}>
                 <Form.Input
                     placeholder='Enter your Email'

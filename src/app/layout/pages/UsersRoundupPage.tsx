@@ -1,16 +1,16 @@
 import { CardGroup, Header, Loader } from "semantic-ui-react"
 import { useGetRoundupsByUser } from "../../data/roundup"
 import RoundupTile from "../../components/roundups/RoundupTile";
-import { useGetUser } from "../../context/userContext";
+import { useUserContext } from "../../context/userContext";
 
 export default function UsersRoundupPage() {
-    const user = useGetUser();
+    const { getUser } = useUserContext();
 
-    const { data: roundups, loading } = useGetRoundupsByUser(user.email)
+    const { data: roundups, loading } = useGetRoundupsByUser(getUser().email)
 
     return (
         <div style={{ marginTop: '5em' }}>
-            <Header>{user.name}'s Roundups</Header>
+            <Header>Your Roundups</Header>
             <Loader active={loading} />
             <CardGroup itemsPerRow={5}>
                 {roundups && roundups.map((r, index) => <RoundupTile roundup={r} key={index} />)}
