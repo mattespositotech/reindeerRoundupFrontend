@@ -1,14 +1,9 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { Button, Form, Header, Message, MessageHeader, Segment } from "semantic-ui-react";
 import { useUserContext } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function forgotPasswordSubmit(data: FieldValues) {
-    console.log(data)
-}
-
-function createAccountSubmit(data: FieldValues) {
     console.log(data)
 }
 
@@ -23,12 +18,11 @@ function SignInContent({ setDisplay }: DisplayProps) {
     const [error, setError] = useState(false);
 
     const userContext = useUserContext();
-    const navigate = useNavigate();
+    
 
     async function signInSubmit(data: FieldValues) {
         try {
             await userContext.signInUser(data['email'], data['password'])
-            navigate('/')
         } catch (error) {
             setError(true)
         }
@@ -97,31 +91,51 @@ function ForgotPasswordContent() {
 }
 
 function CreateAccountContent() {
-    const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({
+    const { register, handleSubmit, formState: { errors, isValid, isSubmitting }, watch } = useForm({
         mode: 'onTouched'
     });
+    const [error, setError] = useState(false)
+    const userContext = useUserContext();
+
+    const password = watch('password');
+
+    async function createAccountSubmit(data: FieldValues) {
+        try {
+            await userContext.createUserAccount(data['email'], data['password'])
+        } catch {
+            setError(true)
+        }
+    }
 
     return (
         <Segment>
             <Header as='h2'>Create an account</Header>
             <p>Create an account to store all your reindeer roundup information</p>
+            {error &&
+                <Message negative>
+                    <MessageHeader>This email address is already in use</MessageHeader>
+                </Message>
+            }
             <Form onSubmit={handleSubmit(createAccountSubmit)}>
                 <Form.Input
                     placeholder='Enter your Email'
-                    {...register('email', { required: true })}
-                    error={errors.email && 'Email is required'}
+                    {...register('email', { required: 'Email is required' })}
+                    error={errors.email && errors.email.message}
                 />
                 <Form.Input
                     type="password"
                     placeholder='Enter your Password'
-                    {...register('password', { required: true })}
-                    error={errors.password && 'Password is required'}
+                    {...register('password', { required: 'Password is required' })}
+                    error={errors.password && errors.password.message}
                 />
                 <Form.Input
                     type="password"
                     placeholder='Confirm your Password'
-                    {...register('password', { required: true })}
-                    error={errors.password && 'Password is required'}
+                    {...register('confirmPassword', {
+                        required: 'Confirm Password is required',
+                        validate: value => value === password || 'Passwords do not match'
+                    })}
+                    error={errors.confirmPassword && errors.confirmPassword.message}
                 />
                 <Button
                     loading={isSubmitting}

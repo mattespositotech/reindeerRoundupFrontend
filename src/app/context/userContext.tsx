@@ -1,11 +1,13 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 import { User } from "../types/User";
-import { signIn } from "../data/user";
+import { createAccount, signIn } from "../data/user";
+import { useNavigate } from "react-router-dom";
 
 interface UserContext {
     getUser: () => User;
     signedIn: boolean;
     signInUser: (email: string, password: string) => Promise<void>
+    createUserAccount: (email: string, password: string) => Promise<void>
 }
 
 const UserContext = createContext<UserContext | undefined>(undefined);
@@ -13,13 +15,21 @@ const UserContext = createContext<UserContext | undefined>(undefined);
 export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User>();
     const [signedIn, setSignedIn] = useState(false);
+    const navigate = useNavigate();
 
-
-    async function signInUser(email: string, password: string) {
-        const returnEmail = await signIn(email, password)
-
-        setUser({ email: returnEmail })
+    async function handleUserAuthentication(authFunction: (email: string, password: string) => Promise<string>, email: string, password: string) {
+        const returnEmail = await authFunction(email, password);
+        setUser({ email: returnEmail });
         setSignedIn(true);
+        navigate('/')
+    }
+    
+    async function signInUser(email: string, password: string) {
+        await handleUserAuthentication(signIn, email, password);
+    }
+    
+    async function createUserAccount(email: string, password: string) {
+        await handleUserAuthentication(createAccount, email, password);
     }
 
     function getUser() {
@@ -28,7 +38,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
 
-    return <UserContext.Provider value={{ getUser, signedIn, signInUser }}>
+    return <UserContext.Provider value={{ getUser, signedIn, signInUser, createUserAccount }}>
         {children}
     </UserContext.Provider>
 }
