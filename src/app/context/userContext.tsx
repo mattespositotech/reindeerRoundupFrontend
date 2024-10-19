@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 import { User } from "../types/User";
-import { createAccount, signIn } from "../data/user";
+import { createAccount, resetPassword, signIn, updatePassword } from "../data/user";
 import { useNavigate } from "react-router-dom";
 
 interface UserContext {
@@ -8,6 +8,8 @@ interface UserContext {
     signedIn: boolean;
     signInUser: (email: string, password: string) => Promise<void>
     createUserAccount: (email: string, password: string) => Promise<void>
+    resetUserPassword: (email: string) => Promise<void>
+    updateUserPassword: (id: string, password: string) => Promise<void>
 }
 
 const UserContext = createContext<UserContext | undefined>(undefined);
@@ -23,13 +25,21 @@ export function UserProvider({ children }: { children: ReactNode }) {
         setSignedIn(true);
         navigate('/')
     }
-    
+
     async function signInUser(email: string, password: string) {
         await handleUserAuthentication(signIn, email, password);
     }
-    
+
     async function createUserAccount(email: string, password: string) {
         await handleUserAuthentication(createAccount, email, password);
+    }
+
+    async function resetUserPassword(email: string) {
+        await resetPassword(email)
+    }
+
+    async function updateUserPassword(id: string, password: string) {
+        await updatePassword(id, password)
     }
 
     function getUser() {
@@ -38,7 +48,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
 
-    return <UserContext.Provider value={{ getUser, signedIn, signInUser, createUserAccount }}>
+    return <UserContext.Provider value={{ getUser, signedIn, signInUser, createUserAccount, resetUserPassword, updateUserPassword }}>
         {children}
     </UserContext.Provider>
 }

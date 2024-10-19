@@ -18,4 +18,15 @@ async function signIn(email: string, password: string): Promise<string> {
 async function createAccount(email: string, password: string): Promise<string> {
     return authenticateUser("user/signup", email, password);
 }
-export {signIn, createAccount}
+
+async function resetPassword(email: string) {
+    const url = `${baseUrl}user/resetpassword?email=${email}`;
+    await saveData(url, {})
+}
+
+async function updatePassword(id: string, password: string) {
+    const url = `${baseUrl}user/updatepassword`
+    await saveData(url, {id, password})
+}
+
+export {signIn, createAccount, resetPassword, updatePassword}

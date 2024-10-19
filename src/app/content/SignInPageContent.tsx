@@ -3,10 +3,6 @@ import { Button, Form, Header, Message, MessageHeader, Segment } from "semantic-
 import { useUserContext } from "../context/userContext";
 import { useState } from "react";
 
-function forgotPasswordSubmit(data: FieldValues) {
-    console.log(data)
-}
-
 interface DisplayProps {
     setDisplay: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -18,7 +14,6 @@ function SignInContent({ setDisplay }: DisplayProps) {
     const [error, setError] = useState(false);
 
     const userContext = useUserContext();
-    
 
     async function signInSubmit(data: FieldValues) {
         try {
@@ -67,26 +62,49 @@ function ForgotPasswordContent() {
     const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({
         mode: 'onTouched'
     });
+    const [error, setError] = useState(false);
+    const [sent, setSent] = useState(false);
+    const userContext = useUserContext();
+
+    async function forgotPasswordSubmit(data: FieldValues) {
+        try {
+            await userContext.resetUserPassword(data['email'])
+            setSent(true)
+        } catch {
+            setError(true)
+        }
+    }
 
     return (
-        <Segment>
-            <Header as='h2'>Forgot Your Password?</Header>
-            <p>Enter your email and we will send you a new temporary password</p>
-            <Form onSubmit={handleSubmit(forgotPasswordSubmit)}>
-                <Form.Input
-                    placeholder='Enter your Email'
-                    {...register('email', { required: true })}
-                    error={errors.email && 'Email is required'}
-                />
-                <Button
-                    loading={isSubmitting}
-                    disabled={!isValid}
-                    type='submit'
-                    fluid
-                    primary
-                    content='Submit' />
-            </Form>
-        </Segment>
+        <>
+            {!sent ?
+                <Segment>
+                    <Header as='h2'>Forgot Your Password?</Header>
+                    <p>Enter your email and we will send you a new temporary password</p>
+                    {error &&
+                        <Message negative>
+                            <MessageHeader>No account for this email</MessageHeader>
+                        </Message>
+                    }
+                    <Form onSubmit={handleSubmit(forgotPasswordSubmit)}>
+                        <Form.Input
+                            placeholder='Enter your Email'
+                            {...register('email', { required: true })}
+                            error={errors.email && 'Email is required'}
+                        />
+                        <Button
+                            loading={isSubmitting}
+                            disabled={!isValid}
+                            type='submit'
+                            fluid
+                            primary
+                            content='Submit' />
+                    </Form>
+                </Segment> :
+                <Segment>
+                    <Header as='h2'>An email has been sent to your inbox</Header>
+                </Segment>}
+        </>
     )
 }
 
