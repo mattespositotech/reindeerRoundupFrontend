@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Button, Container, Menu, MenuItem } from "semantic-ui-react";
 import { useUserContext } from "../../context/userContext";
+import UserMenu from "./UserMenu";
 
 export default function NavBar() {
   const { signedIn } = useUserContext();
@@ -16,7 +17,7 @@ export default function NavBar() {
         {signedIn && <MenuItem name='Your Roundups' as={NavLink} to='/roundup/user' />}
         <MenuItem position="right">
           {signedIn ?
-            <Button basic content='email' /> : <Button basic content="Sign In" as={NavLink} to='/signIn' />}
+            <UserMenu />: <Button basic content="Sign In" as={NavLink} to='/signIn' />}
         </MenuItem>
       </Container>
     </Menu>

@@ -10,13 +10,18 @@ interface UserContext {
     createUserAccount: (email: string, password: string) => Promise<void>
     resetUserPassword: (email: string) => Promise<void>
     updateUserPassword: (id: string, password: string) => Promise<void>
+    logUserOut: () => void
 }
 
 const UserContext = createContext<UserContext | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User>();
-    const [signedIn, setSignedIn] = useState(false);
+    const savedEmail = localStorage.getItem('email');
+    const initalUser = savedEmail ? { email: savedEmail } : undefined
+
+    const [user, setUser] = useState<User | undefined>(initalUser);
+    const [signedIn, setSignedIn] = useState(!!savedEmail);
+
     const navigate = useNavigate();
 
     async function handleUserAuthentication(authFunction: (email: string, password: string) => Promise<string>, email: string, password: string) {
@@ -40,6 +45,15 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     async function updateUserPassword(id: string, password: string) {
         await updatePassword(id, password)
+        navigate('/signIn')
+    }
+
+    async function logUserOut() {
+        localStorage.removeItem('email')
+        localStorage.removeItem('token')
+        navigate('/')
+        setUser(undefined)
+        setSignedIn(false)
     }
 
     function getUser() {
@@ -48,7 +62,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
 
-    return <UserContext.Provider value={{ getUser, signedIn, signInUser, createUserAccount, resetUserPassword, updateUserPassword }}>
+    return <UserContext.Provider value={{ getUser, signedIn, signInUser, createUserAccount, resetUserPassword, updateUserPassword, logUserOut }}>
         {children}
     </UserContext.Provider>
 }

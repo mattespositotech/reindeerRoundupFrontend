@@ -7,6 +7,7 @@ async function authenticateUser(endpoint: string, email: string, password: strin
     const url = `${baseUrl}${endpoint}`;
     const response = await saveData<{ email: string, password: string }, UserAuthReturn>(url, { email, password });
     localStorage.setItem('token', response.access_token);
+    localStorage.setItem('email', response.email)
     return response.email;
 }
 
