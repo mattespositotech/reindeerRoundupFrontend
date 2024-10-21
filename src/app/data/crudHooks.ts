@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getData, saveData } from "./crudFunctions";
+import { getAuthorizedData, saveAuthorizedData } from "./crudFunctions";
 
 function useFetchData<T>(url: string) {
     const [loading, setLoading] = useState(false);
@@ -8,7 +8,7 @@ function useFetchData<T>(url: string) {
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
-            const result = await getData<T>(url);
+            const result = await getAuthorizedData<T>(url);
             setData(result);
             setLoading(false);
         }
@@ -28,7 +28,7 @@ function useSaveData<T, U>() {
         setLoading(true);
         setError(null);
         try {
-            const response = await saveData<T, U>(url, data);
+            const response = await saveAuthorizedData<T, U>(url, data);
             setReturnData(response);
         } catch (err) {
             setError((err as Error).message);
