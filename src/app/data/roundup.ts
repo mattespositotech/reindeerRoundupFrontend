@@ -1,22 +1,21 @@
 import { Roundup, RoundupMinimal } from "../types/RoundupTypes";
 import { saveData } from "./crudFunctions";
 import { useFetchData, useSaveData } from "./crudHooks";
-
-const baseUrl = "http://127.0.0.1:10000/";
+import createUrl from "./utils/createUrl";
 
 function useGetRoundupsByUser(email: string) {
-  const url = `${baseUrl}user/roundups?email=${email}`;
+  const url = createUrl(`user/roundups?email=${email}`)
   return useFetchData<RoundupMinimal[]>(url);
 }
 
 function useGetRoundupById(id: string) {
-  const url = `${baseUrl}roundup?id=${id}`;
+  const url = createUrl(`roundup?id=${id}`)
   return useFetchData<Roundup>(url);
 }
 
 // change to hook
 async function addRoundupByUser(email: string, data: Roundup) {
-  const url = baseUrl + `roundup/add?email=${email}`;
+  const url = createUrl(`roundup/add?email=${email}`)
 
   await saveData(url, data);
 }
@@ -29,7 +28,7 @@ function useUpdateParticipantToAccepted() {
   } = useSaveData<{ id: string; uuid: string }, string>();
 
   const mutate = async (id: string, uuid: string) => {
-    const url = baseUrl + "roundup/participant/accept";
+    const url = createUrl('roundup/participant/accept')
     await save(url, { id, uuid });
   };
 
@@ -44,7 +43,7 @@ function useUpdateParticipantToDecline() {
   } = useSaveData<{ id: string; uuid: string }, string>();
 
   const mutate = async (id: string, uuid: string) => {
-    const url = baseUrl + "roundup/participant/decline";
+    const url = createUrl('roundup/participant/decline')
     await save(url, { id, uuid });
   };
 
@@ -59,7 +58,7 @@ function useSetAllParticipantsToAccepted() {
   } = useSaveData<{ id: string }, string>();
 
   const mutate = async (id: string) => {
-    const url = baseUrl + "roundup/participants/allToAccepted";
+    const url = createUrl('roundup/participants/allToAccepted')
     await save(url, { id });
   };
 
@@ -74,7 +73,7 @@ function useLaunchRoundup() {
   } = useSaveData<{ id: string }, string>();
 
   const mutate = async (id: string) => {
-    const url = baseUrl + "roundup/launch";
+    const url = createUrl('roundup/launch')
     await save(url, { id });
   };
 
