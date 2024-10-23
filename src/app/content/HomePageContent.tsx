@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Container, Header, Button, List, ListContent, ListDescription, ListHeader, ListItem, Image } from "semantic-ui-react";
+import Santa from '../../assets/outside_santa.png'
+import Gifts from '../../assets/gifts.png'
 
-const introImage = '/src/assets/8816187_gifts_christmas_gifting_wrapping_candy_icon (1).png'
-const howImage = '/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png'
+const introImage = Santa
+const howImage = Gifts
 
 
 function introText() {
