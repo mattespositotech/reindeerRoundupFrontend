@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container, Grid, Header, Image, Segment, List, ListItem, ListHeader, ListContent, GridColumn, Button } from "semantic-ui-react";
+import Logo from '../../../assets/Raindeer Roundup.png'
 
 export default function Footer() {
     return (
@@ -9,7 +10,7 @@ export default function Footer() {
                     <GridColumn width={8} floated="left">
                         <List verticalAlign="middle">
                             <ListItem>
-                                <Image size='tiny' src='/src/assets/Raindeer Roundup.png' />
+                                <Image size='tiny' src={Logo} />
                                 <ListContent>
                                     <ListHeader>Reindeer Roundup</ListHeader>
                                 </ListContent>

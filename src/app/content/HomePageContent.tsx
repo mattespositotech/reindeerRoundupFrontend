@@ -25,28 +25,28 @@ function howItWorks() {
         <Container>
             <List verticalAlign="middle">
                 <ListItem>
-                    <Image size="tiny" src='/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png' />
+                    <Image size="tiny" src={Gifts} />
                     <ListContent>
                         <ListHeader>Roundup the Reindeer</ListHeader>
                         <ListDescription>Add Participants</ListDescription>
                     </ListContent>
                 </ListItem>
                 <ListItem>
-                    <Image size="tiny" src='/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png' />
+                    <Image size="tiny" src={Gifts} />
                     <ListContent>
                         <ListHeader>Spread the Hoofprints</ListHeader>
                         <ListDescription>Send Invitations</ListDescription>
                     </ListContent>
                 </ListItem>
                 <ListItem>
-                    <Image size="tiny" src='/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png' />
+                    <Image size="tiny" src={Gifts} />
                     <ListContent>
                         <ListHeader>Uncover your Reindeer Pal</ListHeader>
                         <ListDescription>Draw Names</ListDescription>
                     </ListContent>
                 </ListItem>
                 <ListItem>
-                    <Image size="tiny" src='/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png' />
+                    <Image size="tiny" src={Gifts} />
                     <ListContent>
                         <ListHeader>Share the Holiday Cheer</ListHeader>
                         <ListDescription>Exchange Gifts</ListDescription>

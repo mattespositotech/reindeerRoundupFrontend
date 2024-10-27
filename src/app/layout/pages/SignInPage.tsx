@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CreateAccountContent, ForgotPasswordContent, SignInContent } from "../../content/SignInPageContent";
 import ImageWithContainer from "../containers/ImageWithContainer";
+import { introImage } from "../../content/HomePageContent";
 
 export default function SignInPage() {
     const [display, setDisplay] = useState('signIn');
@@ -13,7 +14,7 @@ export default function SignInPage() {
     
 
     return (
-        <ImageWithContainer imgUrl="/src/assets/8816186_santa_santa claus_winter_christmas_house_icon.png"
+        <ImageWithContainer imgUrl={introImage}
             content={components[display]} />
     )
 }
