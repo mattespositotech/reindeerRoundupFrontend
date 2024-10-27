@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Container, Header, Button, List, ListContent, ListDescription, ListHeader, ListItem, Image } from "semantic-ui-react";
 import Santa from '../../assets/outside_santa.png'
 import Gifts from '../../assets/gifts.png'
+import BuildAListButton from "../components/BuildAListButton";
 
 const introImage = Santa
 const howImage = Gifts
@@ -14,7 +15,7 @@ function introText() {
             <Header as='h2'>The Easiest Name Randomizer</Header>
             <p>Refresh your holiday traditions with our Secret Santa generator, where we keep immediate family out of the equation, making each gift a discovery of pure delight.</p>
             <Container textAlign="center">
-                <Button primary as={Link} to='/roundup'>Build A List</Button>
+                <BuildAListButton primary={true} />
             </Container>
         </Container>
     )

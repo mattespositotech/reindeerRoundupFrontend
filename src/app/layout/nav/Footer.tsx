@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Container, Grid, Header, Image, Segment, List, ListItem, ListHeader, ListContent, GridColumn, Button } from "semantic-ui-react";
+import { Container, Grid, Header, Image, Segment, List, ListItem, ListHeader, ListContent, GridColumn } from "semantic-ui-react";
 import Logo from '../../../assets/Raindeer Roundup.png'
+import BuildAListButton from "../../components/BuildAListButton";
 
 export default function Footer() {
     return (
@@ -30,7 +31,7 @@ export default function Footer() {
                     </GridColumn>
                     <GridColumn width={4}>
                         <Header as='h3'>Get Start Today</Header>
-                        <Button as={Link} to='/roundup'>Build A List</Button>
+                        <BuildAListButton primary={false} />
                     </GridColumn>
                 </Grid>
             </Container>
