@@ -16,7 +16,7 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
   const { getUser } = useUserContext();
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm({ defaultValues: loadedMessage });
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: loadedMessage });
 
   async function submit(data: FieldValues) {
     setLoading(true)
@@ -28,11 +28,12 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
   return (
     <Form onSubmit={handleSubmit(submit)}>
       <FormTextArea
-        placeholder='Add your message here'
-        {...register(roundupLocalStorage.message)}
+        placeholder='(Optional): Add your message here'
+        {...register(roundupLocalStorage.message, { maxLength: 500 })}
+        error={errors.message && 'The max length is 500 characters'}
       />
-      <Button type="button" onClick={back}>Previous</Button>
-      <Button loading={loading}>Submit</Button>
+      <Button loading={loading} floated="right">Submit</Button>
+      <Button type="button" onClick={back} floated="right">Back</Button>
     </Form>
   )
 }

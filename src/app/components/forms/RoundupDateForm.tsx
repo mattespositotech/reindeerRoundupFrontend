@@ -9,8 +9,9 @@ type RoundupDateFormProps = {
 }
 export default function RoundupDateForm({ back, next }: RoundupDateFormProps) {
     const loadedDate = loadStoredData(roundupLocalStorage.date);
+    const today = new Date().toISOString().split("T")[0];
 
-    const { register, handleSubmit } = useForm({ defaultValues: loadedDate });
+    const { register, handleSubmit, formState: {errors} } = useForm({ defaultValues: loadedDate });
 
     function submit(data: FieldValues) {
         saveStoredData(roundupLocalStorage.date, data)
@@ -20,10 +21,14 @@ export default function RoundupDateForm({ back, next }: RoundupDateFormProps) {
         <Form onSubmit={handleSubmit(submit)}>
             <FormInput
                 type='date'
-                {...register(roundupLocalStorage.date)}
+                {...register(roundupLocalStorage.date, {
+                    required: true
+                })}
+                min={today}
+                error={errors.date && 'Date is required'}
             />
-            <Button type="button" onClick={back}>Previous</Button>
-            <Button>Next</Button>
+            <Button floated="right">Next</Button>
+            <Button type="button" onClick={back} floated="right">Back</Button>
         </Form>
     )
 }

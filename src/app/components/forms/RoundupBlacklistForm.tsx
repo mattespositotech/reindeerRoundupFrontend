@@ -1,5 +1,5 @@
 import { FieldValues, useFieldArray, useForm } from "react-hook-form";
-import { Options, ParticipantForm } from "../../types/FormTypes";
+import { BlacklistForm, Options, ParticipantForm } from "../../types/FormTypes";
 import { loadStoredData, saveStoredData } from "../../utils/Session";
 import { Button, Form, FormGroup, Grid, GridColumn, Message, MessageHeader } from "semantic-ui-react";
 import IndividualBlacklist from "./NestedComponents/IndividualBlacklist";
@@ -38,7 +38,7 @@ export default function RoundupBlacklistForm({ back, next }: RoundupBlacklistFor
     }
 
     function submit(data: FieldValues) {
-        if (data.masterBlacklist.some(blacklist => blacklist.blacklist.length < 2)) {
+        if (data.masterBlacklist.some((blacklist: BlacklistForm) => blacklist.blacklist.length < 2)) {
             setLengthError(true)
             return
         }

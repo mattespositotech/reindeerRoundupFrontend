@@ -17,5 +17,5 @@ export interface BlacklistForm {
 }
 
 export interface BlacklistFormItem {
-  email: string;
+  name: string;
 }

@@ -27,6 +27,6 @@ function getInnerStoredDataByKey(key: string) {
 function convertBlacklistsToRoundupFormat() {
   const { masterBlacklist } = loadStoredData(roundupLocalStorage.blacklists);
   return masterBlacklist.map((subBlacklist: BlacklistForm) => {
-    return subBlacklist.blacklist.map((entry) => entry.email);
+    return subBlacklist.blacklist.map((entry) => entry.name);
   });
 }
