@@ -7,6 +7,11 @@ export interface ParticipantForm {
   email: string;
 }
 
+export interface Options {
+  text: string;
+  value: string;
+}
+
 export interface BlacklistForm {
   blacklist: BlacklistFormItem[];
 }

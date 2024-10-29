@@ -10,12 +10,16 @@ type RoundupParticipantsFormProps = {
     next: () => void;
 }
 
+const defaultFormValues = {
+    participants: [{ name: '', email: '' }]
+}
+
 export default function RoundupParticipantsForm({ back, next }: RoundupParticipantsFormProps) {
     const loadedParticipants = loadStoredData(roundupLocalStorage.participants);
 
     const [minError, setMinError] = useState(false);
     const { register, handleSubmit, control, formState: { errors }, getValues } = useForm<ParticipantList>({
-        defaultValues: loadedParticipants ?? { participants: [{ name: '', email: '' }] },
+        defaultValues: loadedParticipants ?? defaultFormValues,
         mode: 'onBlur'
     })
     const { fields, append, remove } = useFieldArray({
@@ -84,8 +88,8 @@ export default function RoundupParticipantsForm({ back, next }: RoundupParticipa
                 </FormGroup>
             ))}
             <Button type="button" onClick={() => append({ name: '', email: '' })}>Add Participant</Button>
-            <Button type="button" onClick={back}>Back</Button>
-            <Button type="submit">Next</Button>
+            <Button type="submit" floated="right">Next</Button>
+            <Button type="button" onClick={back} floated="right">Back</Button>
         </Form>
     )
 }
