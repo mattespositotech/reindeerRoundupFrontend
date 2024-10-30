@@ -1,5 +1,4 @@
 import { Roundup, RoundupMinimal } from "../types/RoundupTypes";
-import { saveData } from "./crudFunctions";
 import { useFetchData, useSaveData } from "./crudHooks";
 import createUrl from "./utils/createUrl";
 
@@ -13,11 +12,19 @@ function useGetRoundupById(id: string) {
   return useFetchData<Roundup>(url);
 }
 
-// change to hook
-async function addRoundupByUser(email: string, data: Roundup) {
-  const url = createUrl(`roundup/add?email=${email}`)
+function useAddRoundupByUser() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<Partial<Roundup>, string>();
 
-  await saveData(url, data);
+  const mutate = async (email: string, roundup: Partial<Roundup>) => {
+    const url = createUrl(`roundup/add?email=${email}`)
+    await save(url, roundup );
+  };
+
+  return { mutate, loading, data };
 }
 
 function useUpdateParticipantToAccepted() {
@@ -83,7 +90,7 @@ function useLaunchRoundup() {
 export {
   useGetRoundupsByUser,
   useGetRoundupById,
-  addRoundupByUser,
+  useAddRoundupByUser,
   useUpdateParticipantToAccepted,
   useUpdateParticipantToDecline,
   useSetAllParticipantsToAccepted,

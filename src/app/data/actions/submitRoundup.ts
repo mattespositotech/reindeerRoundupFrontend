@@ -2,17 +2,23 @@ import { roundupLocalStorage } from "../../enums/RoundupEnums";
 import { BlacklistForm } from "../../types/FormTypes";
 import { Roundup } from "../../types/RoundupTypes";
 import { loadStoredData } from "../../utils/Session";
-import { addRoundupByUser } from "../roundup";
+import { useAddRoundupByUser } from "../roundup";
 
-export async function submitRoundup(email: string) {
-  const roundup: Partial<Roundup> = {};
+export function useSubmitRoundup(email: string) {
+  const { mutate } = useAddRoundupByUser()
 
-  const keys = Object.keys(roundupLocalStorage);
-  keys.forEach((key) => {
-    roundup[key as keyof Roundup] = getInnerStoredDataByKey(key);
-  });
+  const submitRoundup = async () => {
+    const roundup: Partial<Roundup> = {};
 
-  await addRoundupByUser(email, roundup as Roundup)
+    const keys = Object.keys(roundupLocalStorage);
+    keys.forEach((key) => {
+      roundup[key as keyof Roundup] = getInnerStoredDataByKey(key);
+    });
+
+    await mutate(email, roundup)
+  }
+
+  return { submitRoundup }
 }
 
 function getInnerStoredDataByKey(key: string) {

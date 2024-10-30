@@ -2,7 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { loadStoredData, saveStoredData } from "../../utils/Session";
 import { Button, Form, FormTextArea } from "semantic-ui-react";
 import { roundupLocalStorage } from "../../enums/RoundupEnums";
-import { submitRoundup } from "../../data/actions/submitRoundup";
+import { useSubmitRoundup } from "../../data/actions/submitRoundup";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../../context/userContext";
@@ -14,6 +14,7 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
   const [loading, setLoading] = useState(false);
   const loadedMessage = loadStoredData(roundupLocalStorage.message);
   const { getUser } = useUserContext();
+  const { submitRoundup } = useSubmitRoundup(getUser().email)
   const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: loadedMessage });
@@ -21,7 +22,7 @@ export default function RoundupMessageForm({ back }: RoundupMessageFormProps) {
   async function submit(data: FieldValues) {
     setLoading(true)
     saveStoredData(roundupLocalStorage.message, data)
-    await submitRoundup(getUser().email)
+    await submitRoundup()
     setLoading(false)
     navigate('/roundup/user');
   }
