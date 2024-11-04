@@ -69,7 +69,7 @@ export default function RoundupParticipantsForm({ back, next }: RoundupParticipa
                         })}
                         error={
                             errors.participants?.[index]?.name &&
-                            errors.participants[index].name.message
+                            errors.participants?.[index]?.name?.message
                         }
                     />
                     <FormInput
@@ -82,7 +82,7 @@ export default function RoundupParticipantsForm({ back, next }: RoundupParticipa
                             },
                             validate: (value) => !isDuplicate(value, index, 'email') || 'This email is already in use'
                         })}
-                        error={errors.participants?.[index]?.email ? errors.participants[index].email.message : undefined}
+                        error={errors.participants?.[index]?.email ? errors.participants?.[index]?.email?.message : undefined}
                     />
                     <Button type="button" onClick={() => deleteParticipant(index)}>Delete</Button>
                 </FormGroup>
