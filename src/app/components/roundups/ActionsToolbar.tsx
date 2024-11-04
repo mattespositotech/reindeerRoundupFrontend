@@ -22,8 +22,8 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
 
     return (
         <div>
-            {displayAcceptBtn && <Button icon labelPosition="left" color='green' onClick={() => {
-                setAllAccepted.mutate(roundup._id);
+            {displayAcceptBtn && <Button icon labelPosition="left" color='green' onClick={async () => {
+                await setAllAccepted.mutate(roundup._id);
                 navigate(0)
             }
             }
@@ -32,8 +32,8 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
                 Set Everyone To Accepted
             </Button>}
             {roundup.status === roundupStatus.inProgress &&
-                <Button icon labelPosition="left" color='blue' onClick={() => {
-                    launchRoundup.mutate(roundup._id); 
+                <Button icon labelPosition="left" color='blue' onClick={async () => {
+                    await launchRoundup.mutate(roundup._id);
                     navigate(0);
                 }} loading={launchRoundup.loading}>
                     <Icon name='shipping fast' />
