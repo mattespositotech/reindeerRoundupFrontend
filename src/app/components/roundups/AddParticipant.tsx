@@ -7,9 +7,10 @@ import { ParticipantForm } from "../../types/FormTypes"
 import { useNavigate } from "react-router-dom"
 
 type AddParticipantProps = {
-    roundup: Roundup
+    roundup: Roundup;
+    isDuplicate: (value: string, field: 'name' | 'email') => boolean;
 }
-export default function AddParticipant({ roundup }: AddParticipantProps) {
+export default function AddParticipant({ roundup, isDuplicate }: AddParticipantProps) {
     const [modalOpen, setModalOpen] = useState(false)
     const addParticipant = useAddParticipant();
     const navigate = useNavigate();
@@ -27,13 +28,6 @@ export default function AddParticipant({ roundup }: AddParticipantProps) {
     function handleClose() {
         setModalOpen(false)
         reset()
-    }
-
-    function isDuplicate(value: string, field: 'name' | 'email') {
-        return roundup.participants.some(
-            (participant) =>
-                participant[field]?.toLowerCase() === value?.toLowerCase()
-        );
     }
 
     return (

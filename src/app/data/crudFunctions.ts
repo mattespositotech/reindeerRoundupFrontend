@@ -83,4 +83,24 @@ async function saveAuthorizedData<T, U>(url: string, data: T): Promise<U> {
     return await handleFetchResponse(response);
 }
 
-export {getData, saveData, getAuthorizedData, saveAuthorizedData}
+async function deleteAuthorizedData<U>(url: string): Promise<U> {
+    const token = localStorage.getItem('token');
+    let response: Response;
+
+    try {
+        response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error('Error deleting data:', error);
+        throw error;
+    }
+
+    return await handleFetchResponse(response);
+}
+
+export {getData, saveData, getAuthorizedData, saveAuthorizedData, deleteAuthorizedData}

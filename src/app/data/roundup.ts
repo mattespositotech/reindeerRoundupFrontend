@@ -1,5 +1,5 @@
-import { AddParticipant, Resend, Roundup, RoundupMinimal } from "../types/RoundupTypes";
-import { useFetchData, useSaveData } from "./crudHooks";
+import { AddParticipant, Resend, Roundup, RoundupMinimal, UpdateEmail } from "../types/RoundupTypes";
+import { useDeleteData, useFetchData, useSaveData } from "./crudHooks";
 import createUrl from "./utils/createUrl";
 
 function useGetRoundupsByUser(email: string) {
@@ -117,6 +117,36 @@ function useResend() {
   return { mutate, loading, data };
 }
 
+function useUpdateEmail() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<UpdateEmail, string>();
+
+  const mutate = async (updateEmail: UpdateEmail) => {
+    const url = createUrl('/roundup/participant/update')
+    await save(url, updateEmail );
+  };
+
+  return { mutate, loading, data };
+}
+
+
+function useDeleteParticipant() {
+  const {
+    deleteData,
+    loading,
+    returnData: data,
+  } = useDeleteData<string>();
+
+  const deleteParticipant = async (roundupId: string, participantId: string) => {
+    const url = createUrl(`/roundup/participant/delete?id=${roundupId}&uuid=${participantId}`)
+    await deleteData(url );
+  };
+
+  return { deleteParticipant, loading, data };
+}
 
 export {
   useGetRoundupsByUser,
@@ -127,5 +157,7 @@ export {
   useSetAllParticipantsToAccepted,
   useLaunchRoundup,
   useAddParticipant,
-  useResend
+  useResend,
+  useUpdateEmail,
+  useDeleteParticipant
 };

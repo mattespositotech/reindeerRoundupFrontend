@@ -1,9 +1,11 @@
-import { Button, Label, Popup, Segment, SemanticCOLORS, Table, TableBody, TableCell, TableFooter, TableHeader, TableHeaderCell, TableRow } from "semantic-ui-react"
+import { Label, Segment, SemanticCOLORS, Table, TableBody, TableCell, TableFooter, TableHeader, TableHeaderCell, TableRow } from "semantic-ui-react"
 import { Roundup } from "../../types/RoundupTypes"
 import { status } from "../../enums/UserEnums"
 import { status as roundupStatus } from "../../enums/RoundupEnums"
 import AddParticipant from "./AddParticipant"
 import ResendInvite from "./ResendInvite"
+import ChangeEmail from "./ChangeEmail"
+import DeleteParticipant from "./DeleteParticipant"
 
 type ParticipantsTableProps = {
   roundup: Roundup
@@ -25,6 +27,13 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
 
   function labelText(partStatus: status) {
     return statusMapping[partStatus]?.label || 'Unknown';
+  }
+
+  function isDuplicate(value: string, field: 'name' | 'email') {
+    return roundup.participants.some(
+      (participant) =>
+        participant[field]?.toLowerCase() === value?.toLowerCase()
+    );
   }
 
   return (
@@ -51,10 +60,8 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
                 {roundup.status !== roundupStatus.complete &&
                   <>
                     <ResendInvite id={roundup._id} email={part.email} />
-                    <Popup content='Change Email'
-                      trigger={<Button icon='edit' color='teal' />} />
-                    <Popup content='Delete Participant'
-                      trigger={<Button icon='trash' color='red' />} />
+                    <ChangeEmail id={roundup._id} partId={part.uuid} oldEmail={part.email} isDuplicate={isDuplicate} />
+                    <DeleteParticipant name={part.name} roundupId={roundup._id} partId={part.uuid} />
                   </>}
               </TableCell>
             </TableRow>
@@ -64,7 +71,7 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
           <TableRow>
             <TableHeaderCell>
               {roundup.status !== roundupStatus.complete &&
-                <AddParticipant roundup={roundup} />}
+                <AddParticipant roundup={roundup} isDuplicate={isDuplicate} />}
             </TableHeaderCell>
             <TableHeaderCell />
             <TableHeaderCell />

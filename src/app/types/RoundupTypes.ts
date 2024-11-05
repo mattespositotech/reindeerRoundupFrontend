@@ -18,7 +18,7 @@ export interface Matches {
 }
 
 export interface Participant {
-  id: number;
+  uuid: string;
   name: string;
   email: string;
   status: userStatus;
@@ -42,5 +42,11 @@ export interface AddParticipant {
 
 export interface Resend {
   id: string;
+  email: string;
+}
+
+export interface UpdateEmail {
+  id: string;
+  part_id: string;
   email: string;
 }
