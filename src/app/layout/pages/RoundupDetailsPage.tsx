@@ -32,7 +32,7 @@ export default function RoundupDetailsPage() {
                         <Header as='h3'><Icon name='envelope' />Message Sent To Participants</Header>
                         <p>{roundup.message}</p> </>}
                     <Header as='h3'><Icon name='user' />Participants</Header>
-                    <ParticipantsTable participants={roundup.participants} />
+                    <ParticipantsTable roundup={roundup} />
                     <Header as='h3'><Icon name='ban' />Blacklists</Header>
                     <ListOfBlacklists blacklists={roundup.blacklists} />
                     <Header as='h3'><Icon name='bolt' />Actions</Header>

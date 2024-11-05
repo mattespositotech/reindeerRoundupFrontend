@@ -1,5 +1,6 @@
 import { status as roundupStatus } from "../enums/RoundupEnums";
 import { status as userStatus } from "../enums/UserEnums";
+import { ParticipantForm } from "./FormTypes";
 
 export interface Roundup {
   _id: string;
@@ -32,4 +33,9 @@ export interface RoundupMinimal {
 
 export interface ParticipantDictionary {
   [email: string]: string;
+}
+
+export interface AddParticipant {
+  id: string;
+  participant: ParticipantForm;
 }

@@ -1,4 +1,4 @@
-import { Roundup, RoundupMinimal } from "../types/RoundupTypes";
+import { AddParticipant, Roundup, RoundupMinimal } from "../types/RoundupTypes";
 import { useFetchData, useSaveData } from "./crudHooks";
 import createUrl from "./utils/createUrl";
 
@@ -87,6 +87,21 @@ function useLaunchRoundup() {
   return { mutate, loading, data };
 }
 
+function useAddParticipant() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<AddParticipant, string>();
+
+  const mutate = async (addParticipant: AddParticipant) => {
+    const url = createUrl('roundup/participant/add')
+    await save(url, addParticipant );
+  };
+
+  return { mutate, loading, data };
+}
+
 export {
   useGetRoundupsByUser,
   useGetRoundupById,
@@ -95,4 +110,5 @@ export {
   useUpdateParticipantToDecline,
   useSetAllParticipantsToAccepted,
   useLaunchRoundup,
+  useAddParticipant
 };
