@@ -39,3 +39,8 @@ export interface AddParticipant {
   id: string;
   participant: ParticipantForm;
 }
+
+export interface Resend {
+  id: string;
+  email: string;
+}

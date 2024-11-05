@@ -1,8 +1,9 @@
-import { Label, Segment, SemanticCOLORS, Table, TableBody, TableCell, TableFooter, TableHeader, TableHeaderCell, TableRow } from "semantic-ui-react"
+import { Button, Label, Popup, Segment, SemanticCOLORS, Table, TableBody, TableCell, TableFooter, TableHeader, TableHeaderCell, TableRow } from "semantic-ui-react"
 import { Roundup } from "../../types/RoundupTypes"
 import { status } from "../../enums/UserEnums"
 import { status as roundupStatus } from "../../enums/RoundupEnums"
 import AddParticipant from "./AddParticipant"
+import ResendInvite from "./ResendInvite"
 
 type ParticipantsTableProps = {
   roundup: Roundup
@@ -34,6 +35,7 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
             <TableHeaderCell>Name</TableHeaderCell>
             <TableHeaderCell>Email</TableHeaderCell>
             <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell width={3}>Actions</TableHeaderCell>
           </TableRow>
         </TableHeader>
 
@@ -42,7 +44,19 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
             <TableRow key={part.email} {...colorRow(part.status)}>
               <TableCell>{part.name}</TableCell>
               <TableCell>{part.email}</TableCell>
-              <TableCell><Label color={colorLabel(part.status)}>{labelText(part.status)}</Label></TableCell>
+              <TableCell>
+                <Label color={colorLabel(part.status)}>{labelText(part.status)}</Label>
+              </TableCell>
+              <TableCell>
+                {roundup.status !== roundupStatus.complete &&
+                  <>
+                    <ResendInvite id={roundup._id} email={part.email} />
+                    <Popup content='Change Email'
+                      trigger={<Button icon='edit' color='teal' />} />
+                    <Popup content='Delete Participant'
+                      trigger={<Button icon='trash' color='red' />} />
+                  </>}
+              </TableCell>
             </TableRow>
           )}
         </TableBody>
@@ -52,6 +66,7 @@ export default function ParticipantsTable({ roundup }: ParticipantsTableProps) {
               {roundup.status !== roundupStatus.complete &&
                 <AddParticipant roundup={roundup} />}
             </TableHeaderCell>
+            <TableHeaderCell />
             <TableHeaderCell />
             <TableHeaderCell />
           </TableRow>

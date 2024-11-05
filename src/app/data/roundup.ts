@@ -1,4 +1,4 @@
-import { AddParticipant, Roundup, RoundupMinimal } from "../types/RoundupTypes";
+import { AddParticipant, Resend, Roundup, RoundupMinimal } from "../types/RoundupTypes";
 import { useFetchData, useSaveData } from "./crudHooks";
 import createUrl from "./utils/createUrl";
 
@@ -102,6 +102,22 @@ function useAddParticipant() {
   return { mutate, loading, data };
 }
 
+function useResend() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<Resend, string>();
+
+  const mutate = async (resend: Resend) => {
+    const url = createUrl('/roundup/participant/reinvite')
+    await save(url, resend );
+  };
+
+  return { mutate, loading, data };
+}
+
+
 export {
   useGetRoundupsByUser,
   useGetRoundupById,
@@ -110,5 +126,6 @@ export {
   useUpdateParticipantToDecline,
   useSetAllParticipantsToAccepted,
   useLaunchRoundup,
-  useAddParticipant
+  useAddParticipant,
+  useResend
 };
