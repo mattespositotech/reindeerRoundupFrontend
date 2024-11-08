@@ -25,7 +25,6 @@ export default function IndividualBlacklist({ masterIndex, control, getValues, s
             setError(`masterBlacklist.${masterIndex}.blacklist.${index}.name`, {
                 type: 'manual', message: 'That name has already been used'
             })
-            console.log(errors)
         } else {
             setError(`masterBlacklist.${masterIndex}.blacklist.${index}.name`, {})
             setValue(`masterBlacklist.${masterIndex}.blacklist.${index}.name`, value)

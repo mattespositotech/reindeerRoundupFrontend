@@ -6,7 +6,7 @@ export default function AddRoundupTile() {
         <Card color='green' as={Link} to='/roundup'>
             <CardContent textAlign="center">
                 <CardHeader>Add a new roundup</CardHeader>
-                <CardDescription><Icon name='plus circle' /></CardDescription>
+                <CardDescription><Icon name='plus circle' size='large' /></CardDescription>
             </CardContent>
         </Card>
     )

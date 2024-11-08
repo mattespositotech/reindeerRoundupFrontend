@@ -1,4 +1,4 @@
-import { AddParticipant, Resend, Roundup, RoundupMinimal, UpdateEmail } from "../types/RoundupTypes";
+import { AddBlacklist, AddParticipant, Resend, Roundup, RoundupMinimal, UpdateEmail } from "../types/RoundupTypes";
 import { useDeleteData, useFetchData, useSaveData } from "./crudHooks";
 import createUrl from "./utils/createUrl";
 
@@ -148,6 +148,21 @@ function useDeleteParticipant() {
   return { deleteParticipant, loading, data };
 }
 
+function useAddBlacklist() {
+  const {
+    save,
+    loading,
+    returnData: data,
+  } = useSaveData<AddBlacklist, string>();
+
+  const mutate = async (addBlacklist: AddBlacklist) => {
+    const url = createUrl('/roundup/blacklist/add')
+    await save(url, addBlacklist );
+  };
+
+  return { mutate, loading, data };
+}
+
 export {
   useGetRoundupsByUser,
   useGetRoundupById,
@@ -159,5 +174,6 @@ export {
   useAddParticipant,
   useResend,
   useUpdateEmail,
-  useDeleteParticipant
+  useDeleteParticipant,
+  useAddBlacklist
 };

@@ -50,3 +50,8 @@ export interface UpdateEmail {
   part_id: string;
   email: string;
 }
+
+export interface AddBlacklist {
+  id: string;
+  blacklist: string[];
+}
