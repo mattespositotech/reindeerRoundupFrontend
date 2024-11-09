@@ -49,8 +49,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     async function logUserOut() {
-        localStorage.removeItem('email')
-        localStorage.removeItem('token')
+        sessionStorage.removeItem('email')
+        sessionStorage.removeItem('token')
         navigate('/')
         setUser(undefined)
         setSignedIn(false)

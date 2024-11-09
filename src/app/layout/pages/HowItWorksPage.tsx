@@ -7,7 +7,7 @@ import GiftsIcon from '../../../assets/GiftsIcon.png'
 
 export default function HowItWorksPage() {
     return (
-        <div style={{ marginTop: '5em' }}>
+        <div style={{ marginTop: '5em', marginBottom: '5em' }}>
             <ImageWithContainer imgUrl={ParticipantsIcon} content={addParticipants()} list small />
             <ImageWithContainer imgUrl={InvitesIcon} content={sendInvites()} list small />
             <ImageWithContainer imgUrl={NamesIcon} content={drawNames()} list small />

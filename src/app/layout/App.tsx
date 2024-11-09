@@ -9,11 +9,13 @@ function App() {
   return (
     <>
       <UserProvider>
-        <NavBar />
-        <Container>
-          <Outlet />
-        </Container>
-        <Footer />
+        <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+          <NavBar />
+          <Container style={{flex: 1, marginTop: '5em'}}>
+            <Outlet />
+          </Container>
+          <Footer />
+        </div>
       </UserProvider>
     </>
   )

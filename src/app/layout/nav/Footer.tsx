@@ -5,7 +5,7 @@ import BuildAListButton from "../../components/BuildAListButton";
 
 export default function Footer() {
     return (
-        <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '3em 0em' }}>
+        <Segment inverted vertical style={{ padding: '4em 0em' }}>
             <Container>
                 <Grid divided inverted stackable>
                     <GridColumn width={8} floated="left">
