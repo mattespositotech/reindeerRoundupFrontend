@@ -15,8 +15,7 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
     const setAllAccepted = useSetAllParticipantsToAccepted();
     const launchRoundup = useLaunchRoundup();
 
-    // replace with env check
-    const testEnv = true;
+    const testEnv = import.meta.env.VITE_ENV === 'dev';
 
     const displayAcceptBtn = testEnv && roundup.participants.some(part => part.status !== userStatus.accepted)
 
@@ -31,6 +30,7 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
                 <Icon name='check circle' />
                 Set Everyone To Accepted
             </Button>}
+
             {roundup.status === roundupStatus.inProgress &&
                 <Button icon labelPosition="left" color='blue' onClick={async () => {
                     await launchRoundup.mutate(roundup._id);
@@ -39,6 +39,7 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
                     <Icon name='shipping fast' />
                     Launch Early
                 </Button>}
+
             {roundup.status === roundupStatus.complete &&
                 <Button icon labelPosition="left" color='purple' onClick={toggleMatches}>
                     <Icon name='eye' />
