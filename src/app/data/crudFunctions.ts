@@ -43,7 +43,7 @@ async function saveData<T, U>(url: string, data: T): Promise<U> {
 }
 
 async function getAuthorizedData<T>(url: string): Promise<T> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     let response: Response;
 
     try {
@@ -63,7 +63,7 @@ async function getAuthorizedData<T>(url: string): Promise<T> {
 }
 
 async function saveAuthorizedData<T, U>(url: string, data: T): Promise<U> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     let response: Response;
 
     try {
@@ -84,7 +84,7 @@ async function saveAuthorizedData<T, U>(url: string, data: T): Promise<U> {
 }
 
 async function deleteAuthorizedData<U>(url: string): Promise<U> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     let response: Response;
 
     try {

@@ -16,7 +16,7 @@ interface UserContext {
 const UserContext = createContext<UserContext | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const savedEmail = localStorage.getItem('email');
+    const savedEmail = sessionStorage.getItem('email');
     const initalUser = savedEmail ? { email: savedEmail } : undefined
 
     const [user, setUser] = useState<User | undefined>(initalUser);
@@ -49,8 +49,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     async function logUserOut() {
-        localStorage.removeItem('email')
-        localStorage.removeItem('token')
+        sessionStorage.removeItem('email')
+        sessionStorage.removeItem('token')
         navigate('/')
         setUser(undefined)
         setSignedIn(false)

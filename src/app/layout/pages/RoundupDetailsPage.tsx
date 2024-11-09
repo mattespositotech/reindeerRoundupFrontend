@@ -20,7 +20,7 @@ export default function RoundupDetailsPage() {
 
     const matchesFileName = `${roundup?.name} Matches`;
     return (
-        <Container style={{ marginTop: '5em' }}>
+        <Container style={{ marginBottom: '5em' }}>
             <Loader active={loading} />
             {roundup &&
                 <>

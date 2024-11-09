@@ -17,7 +17,7 @@ export default function RoundupPage() {
   }
 
 return (
-  <div style={{ marginTop: '5em' }}>
+  <div>
     <Stepper activeStep={activeStep} totalSteps={5} />
     {activeStep === 1 && <RoundupNameForm next={next} />}
     {activeStep === 2 && <RoundupParticipantsForm back={back} next={next} />}

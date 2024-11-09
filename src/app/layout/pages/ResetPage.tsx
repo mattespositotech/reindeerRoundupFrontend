@@ -29,7 +29,7 @@ export default function ResetPage() {
     }
 
     return (
-        <Segment style={{ marginTop: '5em' }} textAlign="center">
+        <Segment style={{ marginTop: '3em' }} textAlign="center">
             <Header as='h2'>Reset Your Password</Header>
             {error &&
                 <Message negative>

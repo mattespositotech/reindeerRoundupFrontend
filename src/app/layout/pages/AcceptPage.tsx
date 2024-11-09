@@ -6,17 +6,17 @@ import { useEffect } from "react";
 export default function AcceptPage() {
     const { id, uuid } = useParams();
     const { mutate, loading, data } = useUpdateParticipantToAccepted();
-    
+
     const declineUrl = `/roundup/decline/${id}/${uuid}`
-    
+
     useEffect(() => {
         mutate(id || "", uuid || "")
     }, [id, uuid])
 
     return (
-        <Container style={{ marginTop: '5em' }} textAlign="center">
+        <Container textAlign="center">
             <Loader active={loading} inline />
-            {data &&
+            {!loading && (data ?
                 <Container>
                     <Message size="massive" color="green">
                         <MessageHeader as='h1'>You have accepted the invite to join:</MessageHeader>
@@ -27,7 +27,13 @@ export default function AcceptPage() {
                         <Icon name="exclamation" />
                         Clicked the wrong button: <a href={declineUrl}>Decline Instead</a>
                     </Message>
-                </Container>}
+                </Container> :
+                <Container>
+                    <Message attached='bottom' warning>
+                        <Icon name="exclamation" />
+                        It looks like you already accepted
+                    </Message>
+                </Container>)}
         </Container>
     )
 }

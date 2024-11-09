@@ -1,9 +1,9 @@
 import { aboutUsText } from "../../content/AboutPageContent";
-import { introImage } from "../../content/HomePageContent";
 import ImageWithContainer from "../containers/ImageWithContainer";
+import Friends from '../../../assets/christmas_friends.png'
 
 export default function AboutUsPage() {
     return (
-        <ImageWithContainer imgUrl={introImage} content={aboutUsText()} />
+        <ImageWithContainer imgUrl={Friends} content={aboutUsText()} />
     )
 }

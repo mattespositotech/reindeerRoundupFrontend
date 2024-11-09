@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CreateAccountContent, ForgotPasswordContent, SignInContent } from "../../content/SignInPageContent";
 import ImageWithContainer from "../containers/ImageWithContainer";
-import { introImage } from "../../content/HomePageContent";
+import GranddadGift from '../../../assets/grandad_gift_grandson.png'
 
 export default function SignInPage() {
     const [display, setDisplay] = useState('signIn');
@@ -14,7 +14,7 @@ export default function SignInPage() {
     
 
     return (
-        <ImageWithContainer imgUrl={introImage}
+        <ImageWithContainer imgUrl={GranddadGift}
             content={components[display]} />
     )
 }
