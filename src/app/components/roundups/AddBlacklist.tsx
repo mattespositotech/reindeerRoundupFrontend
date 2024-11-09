@@ -102,7 +102,7 @@ export default function AddBlacklist({ roundup }: AddBlacklistProps) {
                                                         handleChange(data.value.toString(), index)
                                                     }
                                                 }}
-                                                error={errors.blacklist?.[index]?.name && errors.blacklist?.[index]?.name.message}
+                                                error={errors.blacklist?.[index]?.name && errors.blacklist?.[index]?.name?.message}
                                             />
                                         )}
                                     />

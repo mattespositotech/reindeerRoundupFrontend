@@ -110,7 +110,7 @@ export default function EditBlacklist({ roundup, blacklistIndex }: EditBlacklist
                                                         handleChange(data.value.toString(), index)
                                                     }
                                                 }}
-                                                error={errors.blacklist?.[index]?.name && errors.blacklist?.[index]?.name.message}
+                                                error={errors.blacklist?.[index]?.name && errors.blacklist?.[index]?.name?.message}
                                             />
                                         )}
                                     />
