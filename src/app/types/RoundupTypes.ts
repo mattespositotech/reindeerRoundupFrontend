@@ -5,12 +5,17 @@ import { ParticipantForm } from "./FormTypes";
 export interface Roundup {
   _id: string;
   participants: Participant[];
-  blacklists: string[][];
+  blacklists: Blacklist[];
   date: string;
   message: string;
   name: string;
   status: roundupStatus;
   matches?: Matches;
+}
+
+export interface Blacklist {
+  uuid: string;
+  blacklist: string[];
 }
 
 export interface Matches {
@@ -34,7 +39,7 @@ export interface RoundupMinimal {
 export interface ParticipantDictionary {
   [email: string]: string;
 }
-
+// move to form types
 export interface AddParticipant {
   id: string;
   participant: ParticipantForm;
@@ -54,4 +59,9 @@ export interface UpdateEmail {
 export interface AddBlacklist {
   id: string;
   blacklist: string[];
+}
+
+export interface EditBlacklist {
+  id: string;
+  blacklist: Blacklist;
 }

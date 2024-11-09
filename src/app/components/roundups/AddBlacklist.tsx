@@ -50,7 +50,7 @@ export default function AddBlacklist({ roundup }: AddBlacklistProps) {
         }
     }
 
-    function submit(data: FieldValues) {
+    async function submit(data: FieldValues) {
         if (data.blacklist.length < 2) {
             setLengthError(true)
             return
@@ -61,10 +61,8 @@ export default function AddBlacklist({ roundup }: AddBlacklistProps) {
             blacklist: data.blacklist.map((item: { name: string }) => item.name)
         }
 
-        console.log(add)
-
         setLengthError(false)
-        addBlacklist.mutate(add)
+        await addBlacklist.mutate(add)
         navigate(0)
     }
 

@@ -21,14 +21,14 @@ export default function ListOfBlacklists({ roundup }: ListOfBlacklistsProps) {
                                 <GridColumn width={8}>
                                     <Header as='h4'>Blacklist: {index + 1}</Header>
                                     <List>
-                                        {blacklist.map(name => (
+                                        {blacklist.blacklist.map(name => (
                                             <ListItem key={name}>{name}</ListItem>
                                         ))}
                                     </List>
                                 </GridColumn>
                                 <GridColumn>
-                                    <DeleteBlacklist />
-                                    <EditBlacklist />
+                                    <DeleteBlacklist roundupId={roundup._id} blacklistId={blacklist.uuid} />
+                                    <EditBlacklist roundup={roundup} blacklistIndex={index} />
                                 </GridColumn>
                             </GridRow>
                         </Grid>
