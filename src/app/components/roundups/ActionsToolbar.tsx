@@ -17,7 +17,7 @@ export default function ActionsToolbar({ roundup, seeMatches, toggleMatches }: A
 
     const testEnv = import.meta.env.VITE_ENV === 'dev';
 
-    const displayAcceptBtn = testEnv && roundup.participants.some(part => part.status !== userStatus.accepted)
+    const displayAcceptBtn = testEnv && roundup.participants.some(part => part.status === userStatus.pending)
 
     return (
         <div>
