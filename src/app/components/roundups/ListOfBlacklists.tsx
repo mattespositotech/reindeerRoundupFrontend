@@ -3,6 +3,7 @@ import AddBlacklist from "./AddBlacklist";
 import { Roundup } from "../../types/RoundupTypes";
 import DeleteBlacklist from "./DeleteBlacklist";
 import EditBlacklist from "./EditBlacklist";
+import { status as roundupStatus } from "../../enums/RoundupEnums"
 
 
 type ListOfBlacklistsProps = {
@@ -26,16 +27,17 @@ export default function ListOfBlacklists({ roundup }: ListOfBlacklistsProps) {
                                         ))}
                                     </List>
                                 </GridColumn>
-                                <GridColumn>
-                                    <DeleteBlacklist roundupId={roundup._id} blacklistId={blacklist.uuid} />
-                                    <EditBlacklist roundup={roundup} blacklistIndex={index} />
-                                </GridColumn>
+                                {roundup.status !== roundupStatus.complete &&
+                                    <GridColumn>
+                                        <DeleteBlacklist roundupId={roundup._id} blacklistId={blacklist.uuid} />
+                                        <EditBlacklist roundup={roundup} blacklistIndex={index} />
+                                    </GridColumn>}
                             </GridRow>
                         </Grid>
                     </Segment>
                 </GridColumn>
             )))}
-            <AddBlacklist roundup={roundup} />
+            {roundup.status !== roundupStatus.complete && <AddBlacklist roundup={roundup} />}
         </Grid>
     )
 }
