@@ -14,7 +14,7 @@ export default function DeclinePage() {
     }, [id, uuid])
 
     return (
-        <Container textAlign="center">
+        <Container textAlign="center" style={{ marginBottom: '5em' }}>
             <Loader active={loading} inline />
             {!loading && (data ?
                 <Container>
