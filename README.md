@@ -2,17 +2,23 @@
 # Reindeer Roundup Frontend
 
 ## Introduction
-**Reindeer Roundup Frontend** is a web-based application built with React and TypeScript, designed to provide an interactive user experience. This project uses Vite as the build tool and follows modern development practices.
+**Reindeer Roundup Frontend** is a web-based application built with React and TypeScript, designed to provide an interactive user experience for organizing Secret Santa gift exchanges. Reindeer Roundup started as a fun solution to a family dilemma: participants drawing the name of someone in thier immediate family. I created a simple program that quickly became a family favorite. Inspired by their enthusiasm, I decided to turn it into a website to share the joy and test my web development skills.
 
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [Scripts](#scripts)
-- [Features](#features)
-- [Dependencies](#dependencies)
-- [Configuration](#configuration)
-- [Deployment](#deployment)
-- [License](#license)
+### How It Works
+
+1. **Add Participants:** Start by creating an event, adding participant names and emails, and optionally setting up a "blacklist" to prevent certain pairings.
+
+2. **Send Invitations:** Once participants are added, the app sends email invitations, allowing people to accept or decline their participation.
+
+3. **Draw Names:** When everyone has responded, the app draws names automatically and notifies each participant of their Secret Santa assignment.
+
+4. **Exchange Gifts:** On the event date, meet up and exchange gifts, enjoying the holiday spirit with friends and family.
+
+Reindeer Roundup makes organizing and drawing names simple and fun, so you can focus on the joy of giving!
+
+### Check Out the Live Site
+
+[Visit Reindeer Roundup](https://reindeer-roundup.com)
 
 ## Installation
 1. Clone the repository.
@@ -23,7 +29,7 @@
    ```
 
 ## Usage
-Start a development server:
+Start a development server (needs the API found [here](https://github.com/mattespositotech/reindeerRoundupApi)):
 ```bash
 npm run dev
 ```
@@ -36,44 +42,38 @@ Build for production:
 npm run build
 ```
 
-## Scripts
-- `dev`: Starts the Vite development server.
-- `prod`: Runs Vite in production mode.
-- `build`: Compiles TypeScript and builds the project.
-- `lint`: Runs ESLint with specific settings.
-- `preview`: Previews the production build locally.
-
 ## Features
-- **React with TypeScript:** Utilizes TypeScript for static typing.
-- **Semantic UI React:** Provides accessible and customizable UI components.
-- **Form Handling with React Hook Form:** Simplifies form management and validation.
-- **Vite Build Tool:** Fast and efficient builds.
 
-## Dependencies
-### Core Dependencies
-- `react` ^18.2.0
-- `react-dom` ^18.2.0
-- `react-hook-form` ^7.51.2
-- `react-router-dom` ^6.22.3
-- `semantic-ui-css` ^2.5.0
-- `semantic-ui-react` ^3.0.0-beta.2
-- `uuid` ^9.0.1
+- **Roundup Management**: Add, edit, delete, and manage participant roundups.
+- **Blacklist Management**: Manage blacklists for specific roundups with features to add, edit, or delete blacklisted participants.
+- **Reusable Components**: Modular components like `BuildAListButton`, `Stepper`, `ActionsToolbar`, and custom forms streamline the user interface.
+- **Protected Routes**: Secure routing with authentication checks.
+- **Data Handling**: CRUD operations for managing user and roundup data.
+- **CSV Export**: Easily download participant data in CSV format.
+- **Custom Pages**: Predefined pages like "How It Works," "HomePage," "SignInPage," and "LegalContent."
 
-### Development Dependencies
-- TypeScript and type definitions
-- ESLint and plugins for code quality
-- Vite for development and builds
+# Project Structure
+The project is organized as follows:
 
-## Configuration
-### TypeScript Configuration
-This project includes TypeScript configuration files (`tsconfig.json` and `tsconfig.node.json`) to tailor TypeScript behavior in development and production.
+- **components**: Contains reusable UI components, including forms, roundups elements, and buttons.
+- **content**: Stores static content for various pages (e.g., `HomePageContent`, `LegalContent`).
+- **context**: Provides `userContext` for managing user state throughout the app.
+- **data**: Handles data management with CRUD functions and hooks.
+- **enums**: Contains enums for colors, roundups, and users, standardizing data formats.
+- **layout**: Contains core layout components, navigation bars, footers, and individual pages.
+- **router**: Configures routing with protected and unprotected routes.
+- **types**: Defines TypeScript types for roundups, forms, and users, ensuring type safety.
+- **utils**: Provides utility functions for session handling and color management.
 
-### Static Web App Configuration
-The `staticwebapp.config.json` file specifies:
-- **Navigation Fallback:** Redirects to `index.html` except for assets in `/images/` and `/css/` folders.
+# Configuration
+Environment variables for development and production are set in the `.env` files. Update as needed
 
 ## Deployment
 This project is set up for static web hosting. The configuration in `staticwebapp.config.json` indicates compatibility with static platforms, routing all non-asset requests to `index.html` for SPA support.
 
-## License
-This project is open-source. Add specific licensing information here if applicable.
+## Image Credit
+Images used in this project are created under the [Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). 
+
+- **Name**: IconFinder 
+- **URL**: [https://www.iconfinder.com/iconsets/christmas-2949](https://www.iconfinder.com/iconsets/christmas-2949)
+
